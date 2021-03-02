@@ -43,7 +43,19 @@ open class HoveringPopUp: UIView {
     
     //MARK: - Create View
     
-    fileprivate func createView() {
+    fileprivate func createView(with window: UIWindow) {
+        window.addSubview(self)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: window, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: window, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: self, attribute: .width  , relatedBy: .equal, toItem: window, attribute: .width  , multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: self, attribute: .height , relatedBy: .equal, toItem: window, attribute: .height , multiplier: 1, constant: 0).isActive = true
+        window.bringSubviewToFront(self)
+    }
+    
+    //MARK: - Pop up frame
+    
+    fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?) {
         
     }
     
@@ -60,14 +72,22 @@ open class HoveringPopUp: UIView {
             } else {
                 if let window = UIApplication.shared.keyWindow {
                     self.mainWindow = window
+                } else if let window = UIApplication.shared.delegate?.window {
+                    self.mainWindow = window
                 }
             }
         } else {
             if let window = UIApplication.shared.keyWindow {
                 self.mainWindow = window
+            } else if let window = UIApplication.shared.delegate?.window {
+                self.mainWindow = window
             }
+
         }
     }
+    
+    //MARK: Directional constraints
+    
     
     //MARK: - Prep
     
@@ -81,9 +101,14 @@ open class HoveringPopUp: UIView {
     ///   - shadowColor: Sets the shadow color of the pop up.
     ///   - borderWidth: Sets the border width of the pop up view.
     ///   - borderColor: Sets the border color of the pop up view.
-    open func preparePopUp(fullView: UIView, title: String, font: UIFont?, backgroundColor: UIColor?, textColor: UIColor?, shadowColor: UIColor?, borderWidth: CGFloat?, borderColor: UIColor?) {
-
+    open func preparePopUp(fullView: UIView, title: String, width: CGFloat?, height: CGFloat?, font: UIFont?, backgroundColor: UIColor?, textColor: UIColor?, shadowColor: UIColor?, borderWidth: CGFloat?, borderColor: UIColor?) {
+        self.removeFromSuperview()
         self.findMainWindow()
+        guard let window = self.mainWindow else {
+            print("Error: No Window found!")
+            return
+        }
+        self.createView(with: window)
         
     }
     
@@ -92,6 +117,10 @@ open class HoveringPopUp: UIView {
     /// Pops up!
     /// - Parameter direction: Sets the direction to display to pop up from.
     open func popFrom(direction: HoveringPopUpDirection) {
+        
+    }
+    
+    open func hidePopUp() {
         
     }
     

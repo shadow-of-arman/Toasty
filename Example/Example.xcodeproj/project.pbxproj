@@ -7,13 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45A30A3F25EE456200B4F9FC /* HoveringPopUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A30A3E25EE456200B4F9FC /* HoveringPopUp.framework */; };
+		45A30A4025EE456200B4F9FC /* HoveringPopUp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45A30A3E25EE456200B4F9FC /* HoveringPopUp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45C23FDB25EE2B9000C8C089 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C23FDA25EE2B9000C8C089 /* AppDelegate.swift */; };
 		45C23FDF25EE2B9000C8C089 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C23FDE25EE2B9000C8C089 /* ViewController.swift */; };
 		45C23FE425EE2B9600C8C089 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C23FE325EE2B9600C8C089 /* Assets.xcassets */; };
 		45C23FE725EE2B9600C8C089 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C23FE525EE2B9600C8C089 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		45A30A4125EE456200B4F9FC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				45A30A4025EE456200B4F9FC /* HoveringPopUp.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		45A30A3E25EE456200B4F9FC /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C23FD725EE2B9000C8C089 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C23FDA25EE2B9000C8C089 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45C23FDE25EE2B9000C8C089 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,17 +44,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45A30A3F25EE456200B4F9FC /* HoveringPopUp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45A30A3D25EE456200B4F9FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45A30A3E25EE456200B4F9FC /* HoveringPopUp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		45C23FCE25EE2B9000C8C089 = {
 			isa = PBXGroup;
 			children = (
 				45C23FD925EE2B9000C8C089 /* Example */,
 				45C23FD825EE2B9000C8C089 /* Products */,
+				45A30A3D25EE456200B4F9FC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +98,7 @@
 				45C23FD325EE2B9000C8C089 /* Sources */,
 				45C23FD425EE2B9000C8C089 /* Frameworks */,
 				45C23FD525EE2B9000C8C089 /* Resources */,
+				45A30A4125EE456200B4F9FC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -273,6 +301,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 589RNFRDJ2;
 				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -292,6 +321,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 589RNFRDJ2;
 				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
