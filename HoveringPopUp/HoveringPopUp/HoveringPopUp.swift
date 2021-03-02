@@ -29,18 +29,6 @@ open class HoveringPopUp: UIView {
     
     fileprivate var mainWindow: UIWindow?
     
-    //MARK: - View Lifecycle
-    
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-        
-    }
-    
-    required public init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-    }
-    
     //MARK: - Create View
     
     fileprivate func createView(with window: UIWindow) {
