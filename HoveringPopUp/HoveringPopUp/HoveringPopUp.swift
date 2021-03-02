@@ -12,8 +12,8 @@ open class HoveringPopUp: UIView {
     
     //MARK: ----- Constants -----
     
-    /// Label used to show the title when in compact mode.
-    fileprivate let compactLabel : UILabel = UILabel()
+    fileprivate let compactLabel : UILabel   = UILabel()
+    fileprivate let popUpView    : PopUpView = PopUpView()
     
     //MARK: ----- Variables -----
     
@@ -26,7 +26,6 @@ open class HoveringPopUp: UIView {
     
     /// The constraints used for the popUpView
     fileprivate var viewConstraints : [NSLayoutConstraint] = []
-    
     fileprivate var mainWindow: UIWindow?
     
     //MARK: - Create View
@@ -89,7 +88,7 @@ open class HoveringPopUp: UIView {
     ///   - shadowColor: Sets the shadow color of the pop up.
     ///   - borderWidth: Sets the border width of the pop up view.
     ///   - borderColor: Sets the border color of the pop up view.
-    open func preparePopUp(fullView: UIView, title: String, width: CGFloat?, height: CGFloat?, font: UIFont?, backgroundColor: UIColor?, textColor: UIColor?, shadowColor: UIColor?, borderWidth: CGFloat?, borderColor: UIColor?) {
+    open func preparePopUp(fullView: UIView, title: String, font: UIFont?, backgroundColor: UIColor?, textColor: UIColor?, shadowColor: UIColor?, borderWidth: CGFloat?, borderColor: UIColor?) {
         self.removeFromSuperview()
         self.findMainWindow()
         guard let window = self.mainWindow else {
@@ -97,15 +96,33 @@ open class HoveringPopUp: UIView {
             return
         }
         self.createView(with: window)
-        
+        self.popUpView.view = fullView
     }
     
     //MARK: - Pop Up
     
     /// Pops up!
     /// - Parameter direction: Sets the direction to display to pop up from.
-    open func popFrom(direction: HoveringPopUpDirection) {
-        
+    open func popFrom(direction: HoveringPopUpDirection, width: CGFloat?, height: CGFloat?, animationDuration: TimeInterval? = 0.3) {
+        self.addSubview(self.popUpView)
+        popUpView.translatesAutoresizingMaskIntoConstraints = false
+        //decides direction
+        switch direction {
+        case .top:
+            NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 10).isActive = true
+            self.popUpView.transform = .init(translationX: 0, y: -(height ?? 200))
+        case .bottom:
+            NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -10).isActive = true
+            self.popUpView.transform = .init(translationX: 0, y: (height ?? 200))
+        }
+        NSLayoutConstraint(item: self.popUpView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: width ?? 150).isActive = true
+        NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: height ?? 40).isActive = true
+        //
+        UIView.animate(withDuration: animationDuration ?? 0.3) {
+            self.popUpView.transform = .identity
+            self.popUpView.layer.cornerRadius = (height ?? 40) / 2
+        }
     }
     
     open func hidePopUp() {

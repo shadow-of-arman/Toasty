@@ -1,5 +1,5 @@
 //
-//  popUpView.swift
+//  PopUpView.swift
 //  HoveringPopUp
 //
 //  Created by Arman Zoghi on 3/2/21.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class popUpView: UIView {
+class PopUpView: UIView {
     
     //MARK: ----- Constants -----
     
@@ -56,6 +56,7 @@ class popUpView: UIView {
     
     fileprivate func initialConfig() {
         self.labelConfig()
+        self.backgroundColor = .white
     }
     
     //MARK: - Label
@@ -63,6 +64,9 @@ class popUpView: UIView {
     //config
     fileprivate func labelConfig() {
         self.addSubview(self.label)
+        self.label.textAlignment = .center
+        label.text = "Pop up"
+        self.label.textColor = .darkGray
         self.labelConstraints()
     }
     

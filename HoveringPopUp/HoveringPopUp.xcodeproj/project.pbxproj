@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4594E66325EE546F00F61852 /* popUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4594E66225EE546F00F61852 /* popUpView.swift */; };
+		4594E66325EE546F00F61852 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4594E66225EE546F00F61852 /* PopUpView.swift */; };
 		45C23FC725EE2B6500C8C089 /* HoveringPopUp.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C23FF925EE2D3900C8C089 /* HoveringPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C23FF825EE2D3900C8C089 /* HoveringPopUp.swift */; };
 		45C23FFC25EE30A500C8C089 /* HoveringPopUpEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C23FFB25EE30A500C8C089 /* HoveringPopUpEnums.swift */; };
@@ -24,7 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4594E66225EE546F00F61852 /* popUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popUpView.swift; sourceTree = "<group>"; };
+		4594E66225EE546F00F61852 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		45C23FC225EE2B6500C8C089 /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoveringPopUp.h; sourceTree = "<group>"; };
 		45C23FC625EE2B6500C8C089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 			children = (
 				45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */,
 				45C23FF825EE2D3900C8C089 /* HoveringPopUp.swift */,
-				4594E66225EE546F00F61852 /* popUpView.swift */,
+				4594E66225EE546F00F61852 /* PopUpView.swift */,
 				45C23FFB25EE30A500C8C089 /* HoveringPopUpEnums.swift */,
 				45C23FC625EE2B6500C8C089 /* Info.plist */,
 			);
@@ -177,7 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45C23FF925EE2D3900C8C089 /* HoveringPopUp.swift in Sources */,
-				4594E66325EE546F00F61852 /* popUpView.swift in Sources */,
+				4594E66325EE546F00F61852 /* PopUpView.swift in Sources */,
 				45C23FFC25EE30A500C8C089 /* HoveringPopUpEnums.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

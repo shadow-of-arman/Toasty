@@ -14,7 +14,5 @@ public enum HoveringPopUpState {
 
 public enum HoveringPopUpDirection {
     case top
-    case left
-    case right
     case bottom
 }

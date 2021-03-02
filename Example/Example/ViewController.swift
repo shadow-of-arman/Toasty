@@ -14,9 +14,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.popUpView)
         self.popUpView.backgroundColor = .red
-        self.popUpView.preparePopUp(fullView: UIView(), title: "Question", width: nil, height: nil, font: nil, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+        self.popUpView.preparePopUp(fullView: UIView(), title: "Question", font: nil, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+        self.popUpView.popFrom(direction: .top, width: nil, height: nil)
         // Do any additional setup after loading the view.
     }
 
