@@ -23,12 +23,16 @@ open class HoveringPopUp: UIView {
             compactLabel.text = self.compactTitleText ?? "POP"
         }
     }
-    
+    fileprivate var popUpInitialConstraints                : [NSLayoutConstraint] = []
     fileprivate var popUpCompactWidthAndHeightConstraints  : [NSLayoutConstraint] = []
     fileprivate var popUpFullSizeWidthAndHeightConstraints : [NSLayoutConstraint] = []
     fileprivate var mainWindow: UIWindow?
     fileprivate var direction : HoveringPopUpDirection = .top
     fileprivate var directionTransform : CGAffineTransform?
+    
+    //MARK: ----- Gestures -----
+    
+    lazy fileprivate var gesture = UITapGestureRecognizer(target: self, action: #selector(self.changeMode(_:)))
     
     //MARK: - Create View
     
@@ -44,24 +48,39 @@ open class HoveringPopUp: UIView {
     
     //MARK: - Pop up frame
     
-    fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?, offset: CGFloat? = -5) {
-        popUpView.translatesAutoresizingMaskIntoConstraints = false
-        self.popUpCompactWidthAndHeightConstraints = []
+    fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?, offset: CGFloat?) {
+        self.popUpView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.deactivate(self.popUpInitialConstraints)
+        var y: NSLayoutConstraint!
         switch self.direction {
         case .top:
-            NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: offset ?? -5).isActive = true
+            y = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: offset ?? -5)
             self.popUpView.transform = .init(translationX: 0, y: -(height ?? 50) - abs(offset ?? -5) - 100)
             self.directionTransform = self.popUpView.transform
         case .bottom:
-            NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: offset ?? -5).isActive = true
+            y = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: offset ?? -5)
             self.popUpView.transform = .init(translationX: 0, y: +(height ?? 50) + abs(offset ?? -5) + 100)
             self.directionTransform = self.popUpView.transform 
         }
-        NSLayoutConstraint(item: self.popUpView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        let x = NSLayoutConstraint(item: self.popUpView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         let widthConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: width ?? 190)
         let heightConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: height ?? 50)
         self.popUpCompactWidthAndHeightConstraints = [widthConstraint, heightConstraint]
-        NSLayoutConstraint.activate(self.popUpCompactWidthAndHeightConstraints)
+        self.popUpInitialConstraints = [x, y, widthConstraint, heightConstraint]
+        NSLayoutConstraint.activate(self.popUpInitialConstraints)
+        self.prepareFullSizeConstraints()
+    }
+    
+    fileprivate func prepareFullSizeConstraints() {
+        var width: NSLayoutConstraint!
+        var height: NSLayoutConstraint!
+        width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: -40)
+        if direction == .top {
+            height = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
+        } else {
+            height = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 70)
+        }
+        self.popUpFullSizeWidthAndHeightConstraints = [width, height]
     }
     
     //MARK: - Prep
@@ -99,19 +118,25 @@ open class HoveringPopUp: UIView {
     /// - Parameter height: Sets the height.
     /// - Parameter animationDuration: Sets the animation duration.
     /// - Parameter offset: Sets an offset from the top or bottom according to the direction.
-    open func show(from direction: HoveringPopUpDirection, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = -5) {
+    /// - Parameter expandable: Adds a tap gesture to expand the toast and show the view that was inserted at prep time.
+    /// - Parameter autoDismiss: Allows toast to hide/dismiss automatically after a certain time.
+    /// - Parameter activeDuration: Sets the time it takes for the toast to hide/dismiss if auto dismiss is true.
+    open func show(from direction: HoveringPopUpDirection, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
         if self.directionTransform == nil {
             self.addSubview(self.popUpView)
             self.direction = direction
-            self.configPopUpFrame(width: width, height: height, offset: offset)
+            self.configPopUpFrame(width: width, height: height, offset: offset ?? -5)
             UIView.animate(withDuration: animationDuration ?? 0.35, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 10, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
                 self.popUpView.transform = .identity
                 self.popUpView.layer.cornerRadius = 25
             }
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.changeMode(_:)))
-            self.popUpView.addGestureRecognizer(gesture)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.changeMode(gesture)
+            if expandable ?? true {
+                self.popUpView.addGestureRecognizer(self.gesture)
+            }
+            if autoDismiss ?? false {
+                Timer.scheduledTimer(withTimeInterval: activeDuration ?? 2, repeats: false) { (_) in
+                    self.hide()
+                }
             }
         }
     }
@@ -134,44 +159,47 @@ open class HoveringPopUp: UIView {
     //MARK: - modes
     
     fileprivate func fullSizeMode() {
-        self.popUpFullSizeWidthAndHeightConstraints = []
         NSLayoutConstraint.deactivate(self.popUpCompactWidthAndHeightConstraints)
-        var width: NSLayoutConstraint!
-        var height: NSLayoutConstraint!
-        width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: -40)
-        if direction == .top {
-            height = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
-        } else {
-            height = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 70)
-        }
-        self.popUpFullSizeWidthAndHeightConstraints = [width, height]
         NSLayoutConstraint.activate(self.popUpFullSizeWidthAndHeightConstraints)
+        self.popUpView.clipsToBounds = true
+        self.popUpView.type = .fullSize
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 2.5, options: [.preferredFramesPerSecond60, .curveEaseInOut]) {
             self.popUpView.transform = .init(translationX: 0, y: 40)
-            self.popUpView.type = .fullSize
             self.layoutSubviews()
+        }
+    }
+    
+    fileprivate func compactMode() {
+        NSLayoutConstraint.deactivate(self.popUpFullSizeWidthAndHeightConstraints)
+        NSLayoutConstraint.activate(self.popUpCompactWidthAndHeightConstraints)
+        self.popUpView.type = .compact
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseInOut]) {
+            self.popUpView.transform = .identity
+            self.layoutSubviews()
+        } completion: { (_) in
+            self.popUpView.clipsToBounds = false
         }
     }
     
     //MARK: - objc
     
     @objc fileprivate func changeMode(_ target: UITapGestureRecognizer) {
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.09) {
-                self.popUpView.transform = .init(scaleX: 0.96, y: 0.96)
-            } completion: { (_) in
-                UIView.animate(withDuration: 0.09) {
-                    self.popUpView.transform = .identity
-                } completion: { (_) in
-                    if let _ = self.directionTransform {
-                        switch self.popUpView.type {
-                        case .compact:
+        if let _ = self.directionTransform {
+            switch self.popUpView.type {
+            case .compact:
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.09) {
+                        self.popUpView.transform = .init(scaleX: 0.96, y: 0.96)
+                    } completion: { (_) in
+                        UIView.animate(withDuration: 0.09) {
+                            self.popUpView.transform = .identity
+                        } completion: { (_) in
                             self.fullSizeMode()
-                        case .fullSize:
-                            print("here")
                         }
                     }
                 }
+            case .fullSize:
+                self.compactMode()
             }
         }
     }

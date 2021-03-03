@@ -97,15 +97,15 @@ class PopUpView: UIView {
         switch type {
         case .compact:
             self.view?.alpha          = 0
-            self.titleLabel.alpha     = 1
-            self.subtitleLabel?.alpha = 1
-            self.clipsToBounds = false
+            UIView.animate(withDuration: 0.4) {
+                self.titleLabel.alpha     = 1
+                self.subtitleLabel?.alpha = 1
+            }
         case .fullSize:
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.4) {
                 self.view?.alpha          = 1
                 self.titleLabel.alpha     = 0
                 self.subtitleLabel?.alpha = 0
-                self.clipsToBounds = true
             }
         }
     }

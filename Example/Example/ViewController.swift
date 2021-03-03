@@ -33,7 +33,6 @@ class ViewController: UIViewController {
     fileprivate func preparePopUp() {
         self.popUpView.backgroundColor = .white
         self.popUpView.preparePopUp(fullView: ExampleView(), title: "Question", font: nil, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
-
     }
     
     //MARK: - popButton
@@ -79,7 +78,7 @@ class ViewController: UIViewController {
     //MARK: - objc
     
     @objc fileprivate func popUp(_ target: UIButton) {
-        self.popUpView.show(from: .top, width: nil, height: nil)
+        self.popUpView.show(from: .top, autoDismiss: true)
     }
     
     @objc fileprivate func hide(_ target: UIButton) {
