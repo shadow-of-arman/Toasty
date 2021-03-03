@@ -12,19 +12,14 @@ class PopUpView: UIView {
     
     //MARK: ----- Constants -----
     
-    fileprivate let label : UILabel = UILabel()
+    fileprivate let titleLabel    : UILabel = UILabel()
     
     //MARK: ----- Variables -----
     
     /// Sets the current type of the popUpView
     internal var type : HoveringPopUpState = .compact {
         didSet {
-            switch type {
-            case .compact:
-                print("compact")
-            case .fullSize:
-                print("fullSize")
-            }
+            self.changeMode()
         }
     }
     
@@ -35,6 +30,8 @@ class PopUpView: UIView {
             self.addView()
         }
     }
+    
+    fileprivate var subtitleLabel : UILabel?
     
     //MARK: - View Lifecycle
     
@@ -63,19 +60,19 @@ class PopUpView: UIView {
     
     //config
     fileprivate func labelConfig() {
-        self.addSubview(self.label)
-        self.label.textAlignment = .center
-        label.text = "Silent Mode"
-        self.label.textColor = Color.title
-        self.label.font = .monospacedDigitSystemFont(ofSize: 13.5, weight: .medium)
+        self.addSubview(self.titleLabel)
+        self.titleLabel.textAlignment = .center
+        titleLabel.text = "Silent Mode"
+        self.titleLabel.textColor = Color.title
+        self.titleLabel.font = .monospacedDigitSystemFont(ofSize: 13.5, weight: .medium)
         self.labelConstraints()
     }
     
     //constraints
     fileprivate func labelConstraints() {
-        self.label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: self.label, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: self.label, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: self.titleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: self.titleLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
     }
     
     //MARK: - Add View
@@ -84,6 +81,7 @@ class PopUpView: UIView {
     fileprivate func addView() {
         self.addSubview(self.view!)
         self.viewConstraints()
+        self.view?.alpha = 0
     }
     
     //constraints
@@ -93,6 +91,23 @@ class PopUpView: UIView {
         NSLayoutConstraint(item: self.view!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: self.view!, attribute: .width  , relatedBy: .equal, toItem: self, attribute: .width  , multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: self.view!, attribute: .height , relatedBy: .equal, toItem: self, attribute: .height , multiplier: 1, constant: 0).isActive = true
+    }
+    
+    fileprivate func changeMode() {
+        switch type {
+        case .compact:
+            self.view?.alpha          = 0
+            self.titleLabel.alpha     = 1
+            self.subtitleLabel?.alpha = 1
+            self.clipsToBounds = false
+        case .fullSize:
+            UIView.animate(withDuration: 0.5) {
+                self.view?.alpha          = 1
+                self.titleLabel.alpha     = 0
+                self.subtitleLabel?.alpha = 0
+                self.clipsToBounds = true
+            }
+        }
     }
     
 }

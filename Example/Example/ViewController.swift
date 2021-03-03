@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     
     fileprivate func preparePopUp() {
         self.popUpView.backgroundColor = .white
-        self.popUpView.preparePopUp(fullView: UIView(), title: "Question", font: nil, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+        self.popUpView.preparePopUp(fullView: ExampleView(), title: "Question", font: nil, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
 
     }
     

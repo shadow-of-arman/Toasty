@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451CFE0C25EF7BBE00F904CF /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451CFE0B25EF7BBE00F904CF /* ExampleView.swift */; };
 		45A30A3F25EE456200B4F9FC /* HoveringPopUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A30A3E25EE456200B4F9FC /* HoveringPopUp.framework */; };
 		45A30A4025EE456200B4F9FC /* HoveringPopUp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45A30A3E25EE456200B4F9FC /* HoveringPopUp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45C23FDB25EE2B9000C8C089 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C23FDA25EE2B9000C8C089 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		451CFE0B25EF7BBE00F904CF /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		45A30A3E25EE456200B4F9FC /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C23FD725EE2B9000C8C089 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C23FDA25EE2B9000C8C089 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				45C23FDA25EE2B9000C8C089 /* AppDelegate.swift */,
 				45C23FDE25EE2B9000C8C089 /* ViewController.swift */,
+				451CFE0B25EF7BBE00F904CF /* ExampleView.swift */,
 				45C23FE325EE2B9600C8C089 /* Assets.xcassets */,
 				45C23FE525EE2B9600C8C089 /* LaunchScreen.storyboard */,
 				45C23FE825EE2B9600C8C089 /* Info.plist */,
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				451CFE0C25EF7BBE00F904CF /* ExampleView.swift in Sources */,
 				45C23FDF25EE2B9000C8C089 /* ViewController.swift in Sources */,
 				45C23FDB25EE2B9000C8C089 /* AppDelegate.swift in Sources */,
 			);

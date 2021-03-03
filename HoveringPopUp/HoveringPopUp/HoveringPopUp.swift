@@ -24,7 +24,8 @@ open class HoveringPopUp: UIView {
         }
     }
     
-    fileprivate var popUpWidthAndHeightConstraints : [NSLayoutConstraint] = []
+    fileprivate var popUpCompactWidthAndHeightConstraints  : [NSLayoutConstraint] = []
+    fileprivate var popUpFullSizeWidthAndHeightConstraints : [NSLayoutConstraint] = []
     fileprivate var mainWindow: UIWindow?
     fileprivate var direction : HoveringPopUpDirection = .top
     fileprivate var directionTransform : CGAffineTransform?
@@ -45,7 +46,7 @@ open class HoveringPopUp: UIView {
     
     fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?, offset: CGFloat? = -5) {
         popUpView.translatesAutoresizingMaskIntoConstraints = false
-        self.popUpWidthAndHeightConstraints = []
+        self.popUpCompactWidthAndHeightConstraints = []
         switch self.direction {
         case .top:
             NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: offset ?? -5).isActive = true
@@ -53,14 +54,14 @@ open class HoveringPopUp: UIView {
             self.directionTransform = self.popUpView.transform
         case .bottom:
             NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: offset ?? -5).isActive = true
-            self.popUpView.transform = .init(translationX: 0, y: (height ?? 200))
+            self.popUpView.transform = .init(translationX: 0, y: +(height ?? 50) + abs(offset ?? -5) + 100)
             self.directionTransform = self.popUpView.transform 
         }
         NSLayoutConstraint(item: self.popUpView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         let widthConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: width ?? 190)
         let heightConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: height ?? 50)
-        self.popUpWidthAndHeightConstraints = [widthConstraint, heightConstraint]
-        NSLayoutConstraint.activate(self.popUpWidthAndHeightConstraints)
+        self.popUpCompactWidthAndHeightConstraints = [widthConstraint, heightConstraint]
+        NSLayoutConstraint.activate(self.popUpCompactWidthAndHeightConstraints)
     }
     
     //MARK: - Prep
@@ -85,23 +86,32 @@ open class HoveringPopUp: UIView {
         self.createView(with: window)
         self.popUpView.view = fullView
         self.popUpView.layer.shadowColor = UIColor.gray.cgColor
-        self.popUpView.layer.shadowOffset = .init(width: 0, height: 10)
+        self.popUpView.layer.shadowOffset = .init(width: 0, height: 7.5)
         self.popUpView.layer.shadowOpacity = 0.25
-        self.popUpView.layer.shadowRadius = 15
+        self.popUpView.layer.shadowRadius = 20
     }
     
     //MARK: - Pop Up
     
     /// Shows toast notification.
     /// - Parameter direction: Sets the direction to display to pop up from.
+    /// - Parameter width: Sets the width.
+    /// - Parameter height: Sets the height.
+    /// - Parameter animationDuration: Sets the animation duration.
+    /// - Parameter offset: Sets an offset from the top or bottom according to the direction.
     open func show(from direction: HoveringPopUpDirection, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = -5) {
         if self.directionTransform == nil {
             self.addSubview(self.popUpView)
             self.direction = direction
             self.configPopUpFrame(width: width, height: height, offset: offset)
-            UIView.animate(withDuration: animationDuration ?? 0.35, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
+            UIView.animate(withDuration: animationDuration ?? 0.35, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 10, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
                 self.popUpView.transform = .identity
                 self.popUpView.layer.cornerRadius = 25
+            }
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.changeMode(_:)))
+            self.popUpView.addGestureRecognizer(gesture)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.changeMode(gesture)
             }
         }
     }
@@ -113,11 +123,56 @@ open class HoveringPopUp: UIView {
             if let transform = self.directionTransform {
                 self.popUpView.transform = transform
             } else {
-                print("Not pop up yet.")
+                print("Not shown yet.")
             }
         } completion: { (_) in
             self.directionTransform = nil
             self.popUpView.removeFromSuperview()
+        }
+    }
+    
+    //MARK: - modes
+    
+    fileprivate func fullSizeMode() {
+        self.popUpFullSizeWidthAndHeightConstraints = []
+        NSLayoutConstraint.deactivate(self.popUpCompactWidthAndHeightConstraints)
+        var width: NSLayoutConstraint!
+        var height: NSLayoutConstraint!
+        width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: -40)
+        if direction == .top {
+            height = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
+        } else {
+            height = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 70)
+        }
+        self.popUpFullSizeWidthAndHeightConstraints = [width, height]
+        NSLayoutConstraint.activate(self.popUpFullSizeWidthAndHeightConstraints)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 2.5, options: [.preferredFramesPerSecond60, .curveEaseInOut]) {
+            self.popUpView.transform = .init(translationX: 0, y: 40)
+            self.popUpView.type = .fullSize
+            self.layoutSubviews()
+        }
+    }
+    
+    //MARK: - objc
+    
+    @objc fileprivate func changeMode(_ target: UITapGestureRecognizer) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.09) {
+                self.popUpView.transform = .init(scaleX: 0.96, y: 0.96)
+            } completion: { (_) in
+                UIView.animate(withDuration: 0.09) {
+                    self.popUpView.transform = .identity
+                } completion: { (_) in
+                    if let _ = self.directionTransform {
+                        switch self.popUpView.type {
+                        case .compact:
+                            self.fullSizeMode()
+                        case .fullSize:
+                            print("here")
+                        }
+                    }
+                }
+            }
         }
     }
     
