@@ -44,6 +44,7 @@ open class HoveringPopUp: UIView {
     //MARK: - Pop up frame
     
     fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?, offset: CGFloat? = -5) {
+        popUpView.translatesAutoresizingMaskIntoConstraints = false
         self.popUpWidthAndHeightConstraints = []
         switch self.direction {
         case .top:
@@ -94,13 +95,14 @@ open class HoveringPopUp: UIView {
     /// Shows toast notification.
     /// - Parameter direction: Sets the direction to display to pop up from.
     open func show(from direction: HoveringPopUpDirection, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = -5) {
-        self.addSubview(self.popUpView)
-        popUpView.translatesAutoresizingMaskIntoConstraints = false
-        self.direction = direction
-        self.configPopUpFrame(width: width, height: height, offset: offset)
-        UIView.animate(withDuration: animationDuration ?? 0.35, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
-            self.popUpView.transform = .identity
-            self.popUpView.layer.cornerRadius = 25
+        if self.directionTransform == nil {
+            self.addSubview(self.popUpView)
+            self.direction = direction
+            self.configPopUpFrame(width: width, height: height, offset: offset)
+            UIView.animate(withDuration: animationDuration ?? 0.35, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
+                self.popUpView.transform = .identity
+                self.popUpView.layer.cornerRadius = 25
+            }
         }
     }
     
@@ -113,6 +115,9 @@ open class HoveringPopUp: UIView {
             } else {
                 print("Not pop up yet.")
             }
+        } completion: { (_) in
+            self.directionTransform = nil
+            self.popUpView.removeFromSuperview()
         }
     }
     
