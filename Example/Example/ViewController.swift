@@ -79,11 +79,11 @@ class ViewController: UIViewController {
     //MARK: - objc
     
     @objc fileprivate func popUp(_ target: UIButton) {
-        self.popUpView.popFrom(direction: .top, width: nil, height: nil)
+        self.popUpView.show(from: .top, width: nil, height: nil)
     }
     
     @objc fileprivate func hide(_ target: UIButton) {
-        self.popUpView.hidePopUp()
+        self.popUpView.hide()
     }
 
 }

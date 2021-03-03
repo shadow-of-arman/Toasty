@@ -62,36 +62,6 @@ open class HoveringPopUp: UIView {
         NSLayoutConstraint.activate(self.popUpWidthAndHeightConstraints)
     }
     
-    /// Finds the main window currently active.
-    fileprivate func findMainWindow() {
-        if #available(iOS 13.0, *) {
-            if let window = UIApplication.shared.connectedScenes
-                .filter({$0.activationState == .foregroundActive})
-                .map({$0 as? UIWindowScene})
-                .compactMap({$0})
-                .first?.windows
-                .filter({$0.isKeyWindow}).first {
-                self.mainWindow = window
-            } else {
-                if let window = UIApplication.shared.keyWindow {
-                    self.mainWindow = window
-                } else if let window = UIApplication.shared.delegate?.window {
-                    self.mainWindow = window
-                }
-            }
-        } else {
-            if let window = UIApplication.shared.keyWindow {
-                self.mainWindow = window
-            } else if let window = UIApplication.shared.delegate?.window {
-                self.mainWindow = window
-            }
-
-        }
-    }
-    
-    //MARK: Directional constraints
-    
-    
     //MARK: - Prep
     
     /// Prepares the popUpViewToShow
@@ -121,9 +91,9 @@ open class HoveringPopUp: UIView {
     
     //MARK: - Pop Up
     
-    /// Pops up!
+    /// Shows toast notification.
     /// - Parameter direction: Sets the direction to display to pop up from.
-    open func popFrom(direction: HoveringPopUpDirection, width: CGFloat?, height: CGFloat?, animationDuration: TimeInterval? = 0.35, offset: CGFloat? = -5) {
+    open func show(from direction: HoveringPopUpDirection, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = -5) {
         self.addSubview(self.popUpView)
         popUpView.translatesAutoresizingMaskIntoConstraints = false
         self.direction = direction
@@ -134,8 +104,10 @@ open class HoveringPopUp: UIView {
         }
     }
     
-    open func hidePopUp() {
-        UIView.animate(withDuration: 0.25, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
+    /// Hides toast notification.
+    /// - Parameter animationDuration: Sets the animation duration.
+    open func hide(animationDuration: TimeInterval? = nil) {
+        UIView.animate(withDuration: animationDuration ?? 0.25, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
             if let transform = self.directionTransform {
                 self.popUpView.transform = transform
             } else {
@@ -144,6 +116,36 @@ open class HoveringPopUp: UIView {
         }
     }
     
+}
+
+//MARK: - Extensions and Delegations
+
+private extension HoveringPopUp {
     
+    //find window
+    func findMainWindow() {
+        if #available(iOS 13.0, *) {
+            if let window = UIApplication.shared.connectedScenes
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first {
+                self.mainWindow = window
+            } else {
+                if let window = UIApplication.shared.keyWindow {
+                    self.mainWindow = window
+                } else if let window = UIApplication.shared.delegate?.window {
+                    self.mainWindow = window
+                }
+            }
+        } else {
+            if let window = UIApplication.shared.keyWindow {
+                self.mainWindow = window
+            } else if let window = UIApplication.shared.delegate?.window {
+                self.mainWindow = window
+            }
+        }
+    }
     
 }
