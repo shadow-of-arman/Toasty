@@ -24,9 +24,10 @@ open class HoveringPopUp: UIView {
         }
     }
     
-    /// The constraints used for the popUpView
-    fileprivate var viewConstraints : [NSLayoutConstraint] = []
+    fileprivate var popUpWidthAndHeightConstraints : [NSLayoutConstraint] = []
     fileprivate var mainWindow: UIWindow?
+    fileprivate var direction : HoveringPopUpDirection = .top
+    fileprivate var directionTransform : CGAffineTransform?
     
     //MARK: - Create View
     
@@ -42,8 +43,23 @@ open class HoveringPopUp: UIView {
     
     //MARK: - Pop up frame
     
-    fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?) {
-        
+    fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?, offset: CGFloat? = -5) {
+        self.popUpWidthAndHeightConstraints = []
+        switch self.direction {
+        case .top:
+            NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: offset ?? -5).isActive = true
+            self.popUpView.transform = .init(translationX: 0, y: -(height ?? 50) - abs(offset ?? -5) - 100)
+            self.directionTransform = self.popUpView.transform
+        case .bottom:
+            NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: offset ?? -5).isActive = true
+            self.popUpView.transform = .init(translationX: 0, y: (height ?? 200))
+            self.directionTransform = self.popUpView.transform 
+        }
+        NSLayoutConstraint(item: self.popUpView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        let widthConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: width ?? 190)
+        let heightConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: height ?? 50)
+        self.popUpWidthAndHeightConstraints = [widthConstraint, heightConstraint]
+        NSLayoutConstraint.activate(self.popUpWidthAndHeightConstraints)
     }
     
     /// Finds the main window currently active.
@@ -88,7 +104,7 @@ open class HoveringPopUp: UIView {
     ///   - shadowColor: Sets the shadow color of the pop up.
     ///   - borderWidth: Sets the border width of the pop up view.
     ///   - borderColor: Sets the border color of the pop up view.
-    open func preparePopUp(fullView: UIView, title: String, font: UIFont?, backgroundColor: UIColor?, textColor: UIColor?, shadowColor: UIColor?, borderWidth: CGFloat?, borderColor: UIColor?) {
+    open func preparePopUp(fullView: UIView, title: String, font: UIFont? = nil, backgroundColor: UIColor? = nil, textColor: UIColor? = nil, shadowColor: UIColor? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
         self.removeFromSuperview()
         self.findMainWindow()
         guard let window = self.mainWindow else {
@@ -97,36 +113,35 @@ open class HoveringPopUp: UIView {
         }
         self.createView(with: window)
         self.popUpView.view = fullView
+        self.popUpView.layer.shadowColor = UIColor.gray.cgColor
+        self.popUpView.layer.shadowOffset = .init(width: 0, height: 10)
+        self.popUpView.layer.shadowOpacity = 0.25
+        self.popUpView.layer.shadowRadius = 15
     }
     
     //MARK: - Pop Up
     
     /// Pops up!
     /// - Parameter direction: Sets the direction to display to pop up from.
-    open func popFrom(direction: HoveringPopUpDirection, width: CGFloat?, height: CGFloat?, animationDuration: TimeInterval? = 0.3) {
+    open func popFrom(direction: HoveringPopUpDirection, width: CGFloat?, height: CGFloat?, animationDuration: TimeInterval? = 0.35, offset: CGFloat? = -5) {
         self.addSubview(self.popUpView)
         popUpView.translatesAutoresizingMaskIntoConstraints = false
-        //decides direction
-        switch direction {
-        case .top:
-            NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 10).isActive = true
-            self.popUpView.transform = .init(translationX: 0, y: -(height ?? 200))
-        case .bottom:
-            NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -10).isActive = true
-            self.popUpView.transform = .init(translationX: 0, y: (height ?? 200))
-        }
-        NSLayoutConstraint(item: self.popUpView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: width ?? 150).isActive = true
-        NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: height ?? 40).isActive = true
-        //
-        UIView.animate(withDuration: animationDuration ?? 0.3) {
+        self.direction = direction
+        self.configPopUpFrame(width: width, height: height, offset: offset)
+        UIView.animate(withDuration: animationDuration ?? 0.35, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
             self.popUpView.transform = .identity
-            self.popUpView.layer.cornerRadius = (height ?? 40) / 2
+            self.popUpView.layer.cornerRadius = 25
         }
     }
     
     open func hidePopUp() {
-        
+        UIView.animate(withDuration: 0.25, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
+            if let transform = self.directionTransform {
+                self.popUpView.transform = transform
+            } else {
+                print("Not pop up yet.")
+            }
+        }
     }
     
     

@@ -56,7 +56,7 @@ class PopUpView: UIView {
     
     fileprivate func initialConfig() {
         self.labelConfig()
-        self.backgroundColor = .white
+        self.backgroundColor = Color.background
     }
     
     //MARK: - Label
@@ -65,8 +65,9 @@ class PopUpView: UIView {
     fileprivate func labelConfig() {
         self.addSubview(self.label)
         self.label.textAlignment = .center
-        label.text = "Pop up"
-        self.label.textColor = .darkGray
+        label.text = "Silent Mode"
+        self.label.textColor = Color.title
+        self.label.font = .monospacedDigitSystemFont(ofSize: 13.5, weight: .medium)
         self.labelConstraints()
     }
     

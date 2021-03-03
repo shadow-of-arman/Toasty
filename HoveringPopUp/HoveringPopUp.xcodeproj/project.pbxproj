@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4594E66325EE546F00F61852 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4594E66225EE546F00F61852 /* PopUpView.swift */; };
+		4594E66925EF55E000F61852 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4594E66825EF55E000F61852 /* Constants.swift */; };
 		45C23FC725EE2B6500C8C089 /* HoveringPopUp.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C23FF925EE2D3900C8C089 /* HoveringPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C23FF825EE2D3900C8C089 /* HoveringPopUp.swift */; };
 		45C23FFC25EE30A500C8C089 /* HoveringPopUpEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C23FFB25EE30A500C8C089 /* HoveringPopUpEnums.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		4594E66225EE546F00F61852 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
+		4594E66825EF55E000F61852 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		45C23FC225EE2B6500C8C089 /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoveringPopUp.h; sourceTree = "<group>"; };
 		45C23FC625EE2B6500C8C089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,6 +46,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4594E66725EF55D000F61852 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4594E66825EF55E000F61852 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		45A30A3525EE39D500B4F9FC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +85,7 @@
 				45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */,
 				45C23FF825EE2D3900C8C089 /* HoveringPopUp.swift */,
 				4594E66225EE546F00F61852 /* PopUpView.swift */,
+				4594E66725EF55D000F61852 /* Utilities */,
 				45C23FFB25EE30A500C8C089 /* HoveringPopUpEnums.swift */,
 				45C23FC625EE2B6500C8C089 /* Info.plist */,
 			);
@@ -179,6 +190,7 @@
 				45C23FF925EE2D3900C8C089 /* HoveringPopUp.swift in Sources */,
 				4594E66325EE546F00F61852 /* PopUpView.swift in Sources */,
 				45C23FFC25EE30A500C8C089 /* HoveringPopUpEnums.swift in Sources */,
+				4594E66925EF55E000F61852 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
