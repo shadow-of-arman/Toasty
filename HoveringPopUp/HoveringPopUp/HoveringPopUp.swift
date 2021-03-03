@@ -104,10 +104,10 @@ open class HoveringPopUp: UIView {
         }
         self.createView(with: window)
         self.popUpView.view = fullView
-        self.popUpView.layer.shadowColor = UIColor.gray.cgColor
-        self.popUpView.layer.shadowOffset = .init(width: 0, height: 7.5)
+        self.popUpView.layer.shadowColor = UIColor.darkGray.cgColor
+        self.popUpView.layer.shadowOffset = .init(width: 0, height: 8)
         self.popUpView.layer.shadowOpacity = 0.25
-        self.popUpView.layer.shadowRadius = 20
+        self.popUpView.layer.shadowRadius = 17.5
     }
     
     //MARK: - Pop Up
@@ -144,7 +144,7 @@ open class HoveringPopUp: UIView {
     /// Hides toast notification.
     /// - Parameter animationDuration: Sets the animation duration.
     open func hide(animationDuration: TimeInterval? = nil) {
-        UIView.animate(withDuration: animationDuration ?? 0.25, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
+        UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
             if let transform = self.directionTransform {
                 self.popUpView.transform = transform
             } else {
