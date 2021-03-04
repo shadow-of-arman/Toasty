@@ -15,22 +15,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		45A30A3A25EE39D900B4F9FC /* PBXContainerItemProxy */ = {
+		451CFE7925F0CAEB00F904CF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 45C23FEF25EE2BB400C8C089 /* Example.xcodeproj */;
+			containerPortal = 451CFE7425F0CAE900F904CF /* Toast Example.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 45C23FD725EE2B9000C8C089;
-			remoteInfo = Example;
+			remoteGlobalIDString = 451CFE5D25F0CAE500F904CF;
+			remoteInfo = "Toast Example";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		451CFE7425F0CAE900F904CF /* Toast Example.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Toast Example.xcodeproj"; path = "../Toast Example/Toast Example.xcodeproj"; sourceTree = "<group>"; };
 		4594E66225EE546F00F61852 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		4594E66825EF55E000F61852 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		45C23FC225EE2B6500C8C089 /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoveringPopUp.h; sourceTree = "<group>"; };
 		45C23FC625EE2B6500C8C089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45C23FEF25EE2BB400C8C089 /* Example.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Example.xcodeproj; path = ../Example/Example.xcodeproj; sourceTree = "<group>"; };
 		45C23FF825EE2D3900C8C089 /* HoveringPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoveringPopUp.swift; sourceTree = "<group>"; };
 		45C23FFB25EE30A500C8C089 /* HoveringPopUpEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoveringPopUpEnums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,6 +46,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		451CFE7525F0CAE900F904CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				451CFE7A25F0CAEB00F904CF /* Toast Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4594E66725EF55D000F61852 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -54,19 +62,11 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		45A30A3525EE39D500B4F9FC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				45A30A3B25EE39D900B4F9FC /* Example.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		45C23FB825EE2B6500C8C089 = {
 			isa = PBXGroup;
 			children = (
 				45C23FC425EE2B6500C8C089 /* HoveringPopUp */,
-				45C23FEF25EE2BB400C8C089 /* Example.xcodeproj */,
+				451CFE7425F0CAE900F904CF /* Toast Example.xcodeproj */,
 				45C23FC325EE2B6500C8C089 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -151,8 +151,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 45A30A3525EE39D500B4F9FC /* Products */;
-					ProjectRef = 45C23FEF25EE2BB400C8C089 /* Example.xcodeproj */;
+					ProductGroup = 451CFE7525F0CAE900F904CF /* Products */;
+					ProjectRef = 451CFE7425F0CAE900F904CF /* Toast Example.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -163,11 +163,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		45A30A3B25EE39D900B4F9FC /* Example.app */ = {
+		451CFE7A25F0CAEB00F904CF /* Toast Example.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = Example.app;
-			remoteRef = 45A30A3A25EE39D900B4F9FC /* PBXContainerItemProxy */;
+			path = "Toast Example.app";
+			remoteRef = 451CFE7925F0CAEB00F904CF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

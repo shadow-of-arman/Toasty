@@ -126,7 +126,7 @@ open class HoveringPopUp: UIView {
             self.addSubview(self.popUpView)
             self.direction = direction
             self.configPopUpFrame(width: width, height: height, offset: offset ?? -5)
-            UIView.animate(withDuration: animationDuration ?? 0.35, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 10, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
+            UIView.animate(withDuration: animationDuration ?? 0.45, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
                 self.popUpView.transform = .identity
                 self.popUpView.layer.cornerRadius = 25
             }
@@ -223,9 +223,7 @@ private extension HoveringPopUp {
             } else {
                 if let window = UIApplication.shared.keyWindow {
                     self.mainWindow = window
-                } else if let window = UIApplication.shared.delegate?.window {
-                    self.mainWindow = window
-                }
+                } 
             }
         } else {
             if let window = UIApplication.shared.keyWindow {
