@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     fileprivate func preparePopUp() {
         let view = UIView()
         view.backgroundColor = .gray
-        self.popUpView.preparePopUp(fullView: view, title: "Question", font: nil, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+        self.popUpView.preparePopUp(title: "Question", font: nil, fullView: view, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
     }
     
     //MARK: - popButton
