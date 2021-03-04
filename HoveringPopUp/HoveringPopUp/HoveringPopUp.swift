@@ -199,7 +199,11 @@ open class HoveringPopUp: UIView {
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 2.5, options: [.preferredFramesPerSecond60, .curveEaseInOut]) {
             blurView.alpha = 1
             self.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
-            self.popUpView.transform = .init(translationX: 0, y: 40)
+            if self.direction == .top {
+                self.popUpView.transform = .init(translationX: 0, y: 40)
+            } else {
+                self.popUpView.transform = .init(translationX: 0, y: -40)
+            }
             self.layoutSubviews()
         }
     }

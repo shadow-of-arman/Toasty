@@ -97,7 +97,7 @@ class PopUpView: UIView {
         switch type {
         case .compact:
             self.view?.alpha          = 0
-            UIView.animate(withDuration: 0.1) {
+            UIView.animate(withDuration: 0.15) {
                 self.titleLabel.alpha     = 1
                 self.subtitleLabel?.alpha = 1
             }
