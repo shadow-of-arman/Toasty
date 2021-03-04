@@ -34,16 +34,34 @@ open class HoveringPopUp: UIView {
     
     lazy fileprivate var gesture = UITapGestureRecognizer(target: self, action: #selector(self.changeMode(_:)))
     
+    //MARK: Pass Through Touch
+    
+    /// Allows touch to pass through hidden areas.
+    /// - Parameters:
+    ///   - point: The point of touch.
+    ///   - event: The even that created the touch.
+    /// - Returns: If touch should register or pass through.
+    override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        for subview in subviews {
+            if !subview.isHidden, subview.isUserInteractionEnabled, subview.frame.contains(point) {
+                return true
+            }
+        }
+        return false
+    }
+    
     //MARK: - Create View
     
     fileprivate func createView(with window: UIWindow) {
-        window.addSubview(self)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: window, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: window, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: self, attribute: .width  , relatedBy: .equal, toItem: window, attribute: .width  , multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: self, attribute: .height , relatedBy: .equal, toItem: window, attribute: .height , multiplier: 1, constant: 0).isActive = true
-        window.bringSubviewToFront(self)
+        if superview != window {
+            window.addSubview(self)
+            self.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: window, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: window, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: self, attribute: .width  , relatedBy: .equal, toItem: window, attribute: .width  , multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: self, attribute: .height , relatedBy: .equal, toItem: window, attribute: .height , multiplier: 1, constant: 0).isActive = true
+            window.bringSubviewToFront(self)
+        }
     }
     
     //MARK: - Pop up frame
@@ -103,6 +121,7 @@ open class HoveringPopUp: UIView {
             return
         }
         self.createView(with: window)
+        self.popUpView.view?.removeFromSuperview()
         self.popUpView.view = fullView
         self.popUpView.layer.shadowColor = UIColor.darkGray.cgColor
         self.popUpView.layer.shadowOffset = .init(width: 0, height: 8)
