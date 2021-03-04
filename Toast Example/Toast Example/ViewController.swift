@@ -84,7 +84,7 @@ class ViewController: UIViewController {
     
     @objc fileprivate func popUp(_ target: UIButton) {
         self.preparePopUp()
-        self.popUpView.show(from: .top, autoDismiss: true)
+        self.popUpView.show(from: .top, autoDismiss: false)
     }
     
     @objc fileprivate func hide(_ target: UIButton) {

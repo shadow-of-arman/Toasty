@@ -102,10 +102,10 @@ class PopUpView: UIView {
                 self.subtitleLabel?.alpha = 1
             }
         case .fullSize:
+            self.titleLabel.alpha     = 0
+            self.subtitleLabel?.alpha = 0
             UIView.animate(withDuration: 0.4) {
                 self.view?.alpha          = 1
-                self.titleLabel.alpha     = 0
-                self.subtitleLabel?.alpha = 0
             }
         }
     }
