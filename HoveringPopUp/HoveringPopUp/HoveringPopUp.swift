@@ -29,10 +29,12 @@ open class HoveringPopUp: UIView {
     fileprivate var mainWindow: UIWindow?
     fileprivate var direction : HoveringPopUpDirection = .top
     fileprivate var directionTransform : CGAffineTransform?
+    fileprivate var dismissButtonTransform : CGAffineTransform?
+    fileprivate var dismissButton          : UIButton?
     
     //MARK: ----- Gestures -----
     
-    lazy fileprivate var tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.changeMode(_:)))
+    lazy fileprivate var tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.changeMode))
     
     //MARK: Pass Through Touch
     
@@ -46,9 +48,6 @@ open class HoveringPopUp: UIView {
             if !subview.isHidden, subview.isUserInteractionEnabled, subview.frame.contains(point) {
                 return true
             }
-        }
-        if self.popUpView.type == .fullSize {
-            return true
         }
         return false
     }
@@ -130,9 +129,9 @@ open class HoveringPopUp: UIView {
             self.popUpView.view = view
         }
         self.popUpView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor
-        self.popUpView.layer.shadowOffset  = shadowOffset  ?? .init(width: 0, height: 8)
-        self.popUpView.layer.shadowOpacity = shadowOpacity ?? 0.25
-        self.popUpView.layer.shadowRadius  = shadowRadius  ?? 17.5
+        self.popUpView.layer.shadowOffset  = shadowOffset  ?? .init(width: 0, height: 5)
+        self.popUpView.layer.shadowOpacity = shadowOpacity ?? 0.265
+        self.popUpView.layer.shadowRadius  = shadowRadius  ?? 20
     }
     
     //MARK: - Pop Up
@@ -173,6 +172,9 @@ open class HoveringPopUp: UIView {
     open func hide(animationDuration: TimeInterval? = nil) {
         UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
             if let transform = self.directionTransform {
+                if self.popUpView.type == .fullSize {
+                    self.compactMode()
+                }
                 self.popUpView.transform = transform
             } else {
                 print("Not shown yet.")
@@ -183,13 +185,51 @@ open class HoveringPopUp: UIView {
         }
     }
     
+    //MARK: - Dismiss Button
+    
+    //config
+    fileprivate func dismissButtonConfig() {
+        self.dismissButton = UIButton()
+        self.insertSubview(dismissButton!, at: 1)
+        self.dismissButtonConstraints()
+        self.dismissButton?.layer.cornerRadius = 15
+        self.dismissButton?.layer.borderWidth = 0.5
+        self.dismissButton?.layer.borderColor = UIColor.lightGray.cgColor
+        self.dismissButton?.alpha = 0
+        self.dismissButton?.setTitle("X", for: .normal)
+        self.dismissButton?.setTitleColor(UIColor.lightGray, for: .normal)
+        self.dismissButton?.transform = .init(translationX: 0, y: 40)
+        self.dismissButtonTransform = self.dismissButton?.transform
+        self.dismissButton?.addTarget(self, action: #selector(self.changeMode), for: .touchUpInside)
+        self.layoutSubviews()
+    }
+    
+    //constraints
+    fileprivate func dismissButtonConstraints() {
+        self.dismissButton?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: self.dismissButton!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: self.dismissButton!, attribute: .bottom, relatedBy: .equal, toItem: self.popUpView, attribute: .top, multiplier: 1, constant: -5).isActive = true
+        NSLayoutConstraint(item: self.dismissButton!, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: 30).isActive = true
+        NSLayoutConstraint(item: self.dismissButton!, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30).isActive = true
+    }
+    
+    //remove
+    fileprivate func dismissButtonRemove() {
+        if let button = dismissButton {
+            NSLayoutConstraint.deactivate(button.constraints)
+            button.removeFromSuperview()
+            self.dismissButton = nil
+        }
+    }
+    
     //MARK: - modes
     
     fileprivate func fullSizeMode() {
+        self.dismissButtonConfig()
         NSLayoutConstraint.deactivate(self.popUpCompactWidthAndHeightConstraints)
         NSLayoutConstraint.activate(self.popUpFullSizeWidthAndHeightConstraints)
-        self.popUpView.removeGestureRecognizer(self.tapGesture)
         self.addGestureRecognizer(self.tapGesture)
+        self.popUpView.removeGestureRecognizer(self.tapGesture)
         self.popUpView.clipsToBounds = true
         self.popUpView.type = .fullSize
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
@@ -206,6 +246,9 @@ open class HoveringPopUp: UIView {
             }
             self.layoutSubviews()
         }
+        UIView.transition(with: self.dismissButton!, duration: 0.5, options: .transitionFlipFromTop, animations: {
+            self.dismissButton?.alpha = 1
+        }, completion: nil)
     }
     
     fileprivate func compactMode() {
@@ -216,6 +259,7 @@ open class HoveringPopUp: UIView {
         let blurView = self.subviews[0]
         self.popUpView.clipsToBounds = false
         self.popUpView.view?.alpha = 0
+        self.dismissButtonRemove()
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
             blurView.alpha = 0
             self.popUpView.transform = .identity
@@ -229,7 +273,7 @@ open class HoveringPopUp: UIView {
     
     //MARK: - objc
     
-    @objc fileprivate func changeMode(_ target: UITapGestureRecognizer) {
+    @objc fileprivate func changeMode() {
         if let _ = self.directionTransform {
             switch self.popUpView.type {
             case .compact:
@@ -245,7 +289,21 @@ open class HoveringPopUp: UIView {
                     }
                 }
             case .fullSize:
-                self.compactMode()
+                if let button = self.dismissButton {
+                    DispatchQueue.main.async {
+                        UIView.animate(withDuration: 0.09) {
+                            button.transform = self.dismissButtonTransform!.scaledBy(x: 0.9, y: 0.9)
+                        } completion: { (_) in
+                            UIView.animate(withDuration: 0.09) {
+                                button.transform = self.dismissButtonTransform!
+                            } completion: { (_) in
+                                self.compactMode()
+                            }
+                        }
+                    }
+                } else {
+                    self.compactMode()
+                }
             }
         }
     }
