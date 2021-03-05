@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 
+enum Main {
+    static let bundle = Bundle.init(identifier: "shadow.co.HoveringPopUp")
+}
+
 enum Color {
-    static let background = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
-    static let title      = #colorLiteral(red: 0.4901960784, green: 0.4901960784, blue: 0.4901960784, alpha: 1)
-    static let subtitle   = #colorLiteral(red: 0.7450980392, green: 0.7450980392, blue: 0.7450980392, alpha: 1)
+    static let background = UIColor(named: "Background", in: Main.bundle, compatibleWith: nil)
+    static let title      = UIColor(named: "Title", in: Main.bundle, compatibleWith: nil)
+    static let subtitle   = UIColor(named: "Subtitle", in: Main.bundle, compatibleWith: nil)
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		457E0A5425F2BD4C0003C247 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457E0A5325F2BD4C0003C247 /* Media.xcassets */; };
 		4594E66325EE546F00F61852 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4594E66225EE546F00F61852 /* PopUpView.swift */; };
 		4594E66925EF55E000F61852 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4594E66825EF55E000F61852 /* Constants.swift */; };
 		45C23FC725EE2B6500C8C089 /* HoveringPopUp.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C23FC525EE2B6500C8C089 /* HoveringPopUp.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		451CFE7425F0CAE900F904CF /* Toast Example.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Toast Example.xcodeproj"; path = "../Toast Example/Toast Example.xcodeproj"; sourceTree = "<group>"; };
+		457E0A5325F2BD4C0003C247 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4594E66225EE546F00F61852 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		4594E66825EF55E000F61852 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		45C23FC225EE2B6500C8C089 /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				4594E66825EF55E000F61852 /* Constants.swift */,
+				457E0A5325F2BD4C0003C247 /* Media.xcassets */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				457E0A5425F2BD4C0003C247 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -129,8 +129,8 @@ open class HoveringPopUp: UIView {
             self.popUpView.view = view
         }
         self.popUpView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor
-        self.popUpView.layer.shadowOffset  = shadowOffset  ?? .init(width: 0, height: 5)
-        self.popUpView.layer.shadowOpacity = shadowOpacity ?? 0.265
+        self.popUpView.layer.shadowOffset  = shadowOffset  ?? .init(width: 0, height: 6)
+        self.popUpView.layer.shadowOpacity = shadowOpacity ?? 0.25
         self.popUpView.layer.shadowRadius  = shadowRadius  ?? 20
     }
     
