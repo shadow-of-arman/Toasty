@@ -17,7 +17,6 @@ class PopUpView: UIView {
     //MARK: ----- Variables -----
     
     fileprivate var subtitleLabel : UILabel?
-
     
     /// Sets the current type of the popUpView
     internal var type : HoveringPopUpState = .compact {
@@ -54,6 +53,34 @@ class PopUpView: UIView {
             self.titleLabel.font = self.titleFont
         }
     }
+    
+    /// Configs subtitle view and sets the subtitle text.
+    internal var subtitle : String? {
+        didSet {
+            if let text = self.subtitle {
+                
+                self.subtitleLabel?.text = text
+            }
+        }
+    }
+    
+    /// Sets the subtitle font.
+    internal var subtitleFont : UIFont? {
+        didSet {
+            if let label = self.subtitleLabel {
+                label.font = self.subtitleFont
+            }
+        }
+    }
+    
+    /// Sets the subtitle color.
+    internal var subTitleColor : UIColor? {
+        didSet {
+            if let label = self.subtitleLabel {
+                label.textColor = self.subTitleColor
+            }
+        }
+    }
         
     //MARK: - View Lifecycle
     
@@ -83,8 +110,6 @@ class PopUpView: UIView {
     fileprivate func labelConfig() {
         self.addSubview(self.titleLabel)
         self.titleLabel.textAlignment = .center
-        self.titleLabel.textColor = Color.title
-        self.titleLabel.font = .monospacedDigitSystemFont(ofSize: 13.5, weight: .medium)
         self.labelConstraints()
     }
     
@@ -116,7 +141,7 @@ class PopUpView: UIView {
     fileprivate func changeMode() {
         switch type {
         case .compact:
-            self.view?.alpha          = 0
+            self.view?.alpha = 0
             UIView.animate(withDuration: 0.15) {
                 self.titleLabel.alpha     = 1
                 self.subtitleLabel?.alpha = 1
@@ -125,7 +150,7 @@ class PopUpView: UIView {
             self.titleLabel.alpha     = 0
             self.subtitleLabel?.alpha = 0
             UIView.animate(withDuration: 0.4) {
-                self.view?.alpha          = 1
+                self.view?.alpha = 1
             }
         }
     }

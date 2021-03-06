@@ -103,7 +103,7 @@ open class HoveringPopUp: UIView {
         self.popUpFullSizeWidthAndHeightConstraints = [width, height]
     }
     
-    //MARK: - Prep
+    //MARK: - Preperation
     
     /// Prepares the popUpViewToShow
     /// - Parameters:
@@ -115,7 +115,7 @@ open class HoveringPopUp: UIView {
     ///   - shadowColor: Sets the shadow color of the pop up.
     ///   - borderWidth: Sets the border width of the pop up view.
     ///   - borderColor: Sets the border color of the pop up view.
-    open func preparePopUp(title: String, titleFont: UIFont? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
+    open func preparePopUp(title: String, titleFont: UIFont? = nil, subtitle: String? = nil, subtitleFont: UIFont? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, subtitleColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
         self.removeFromSuperview()
         self.findMainWindow()
         guard let window = self.mainWindow else {
@@ -135,7 +135,11 @@ open class HoveringPopUp: UIView {
         self.popUpView.backgroundColor = backgroundColor ?? Color.background
         self.popUpView.titleColor      = titleColor ?? Color.title
           //subtitle
-        self.popUpView
+        self.popUpView.subtitle      = subtitle
+        self.popUpView.subtitleFont  = subtitleFont
+        self.popUpView.subTitleColor = subtitleColor ?? Color.subtitle
+          //icon
+        
         
         //Shadow
         self.popUpView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor
@@ -258,12 +262,12 @@ open class HoveringPopUp: UIView {
         self.dismissButtonConfig()
         NSLayoutConstraint.deactivate(self.popUpCompactWidthAndHeightConstraints)
         NSLayoutConstraint.activate(self.popUpFullSizeWidthAndHeightConstraints)
-        self.addGestureRecognizer(self.tapGesture)
         self.popUpView.removeGestureRecognizer(self.tapGesture)
         self.popUpView.clipsToBounds = true
         self.popUpView.type = .fullSize
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         blurView.alpha = 0
+        blurView.addGestureRecognizer(self.tapGesture)
         blurView.frame = self.bounds
         self.insertSubview(blurView, at: 0)
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 2.5, options: [.preferredFramesPerSecond60, .curveEaseInOut]) {
@@ -284,9 +288,9 @@ open class HoveringPopUp: UIView {
     fileprivate func compactMode() {
         NSLayoutConstraint.deactivate(self.popUpFullSizeWidthAndHeightConstraints)
         NSLayoutConstraint.activate(self.popUpCompactWidthAndHeightConstraints)
-        self.removeGestureRecognizer(self.tapGesture)
         self.popUpView.addGestureRecognizer(self.tapGesture)
         let blurView = self.subviews[0]
+        blurView.removeGestureRecognizer(self.tapGesture)
         self.popUpView.clipsToBounds = false
         self.popUpView.view?.alpha = 0
         self.dismissButtonRemove()
