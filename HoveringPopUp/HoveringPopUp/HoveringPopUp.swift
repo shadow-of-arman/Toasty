@@ -154,7 +154,12 @@ open class HoveringPopUp: UIView {
                 self.popUpView.transform = .identity
                 self.popUpView.layer.cornerRadius = 25
             }
-            if expandable ?? true {
+            expandability: if expandable ?? true {
+                if self.popUpView.view == nil {
+                    print(Warning.noFullViewEntered)
+                    self.popUpView.removeGestureRecognizer(self.tapGesture)
+                    break expandability
+                }
                 self.popUpView.addGestureRecognizer(self.tapGesture)
             } else {
                 self.popUpView.removeGestureRecognizer(self.tapGesture)
@@ -163,7 +168,7 @@ open class HoveringPopUp: UIView {
                 Timer.scheduledTimer(withTimeInterval: activeDuration ?? 2, repeats: false) { (_) in
                     self.hide()
                 }
-            }
+            } else if self.popUpView.view == nil && !(autoDismiss ?? false) { print(Warning.autoViewOffAndNoFullView) }
         }
     }
     
@@ -177,7 +182,7 @@ open class HoveringPopUp: UIView {
                 }
                 self.popUpView.transform = transform
             } else {
-                print("Not shown yet.")
+                print("Toast is not yet shown.")
             }
         } completion: { (_) in
             self.directionTransform = nil
