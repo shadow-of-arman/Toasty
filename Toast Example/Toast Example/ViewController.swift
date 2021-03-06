@@ -32,13 +32,14 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .white
         self.popButtonConfig()
         self.hideButtonConfig()
+        self.popUpView.fullSizeFrameConstraints(width: UIScreen.main.bounds.width - 20, height: 200)
     }
     
     //MARK: - Prepare pop up
     
     fileprivate func preparePopUp() {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .lightGray
         if #available(iOS 13.0, *) {
             self.popUpView.preparePopUp(title: "Silent Mode", titleFont: nil, subtitle: "On", icon: UIImage(systemName: "speaker.slash.fill"), fullView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
         } else {

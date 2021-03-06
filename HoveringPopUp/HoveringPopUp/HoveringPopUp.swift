@@ -31,6 +31,8 @@ open class HoveringPopUp: UIView {
     fileprivate var directionTransform     : CGAffineTransform?
     fileprivate var dismissButtonTransform : CGAffineTransform?
     fileprivate var dismissButton          : UIButton?
+    fileprivate var fullSizeWidth          : CGFloat?
+    fileprivate var fullSizeHeight         : CGFloat?
     
     //MARK: ----- Gestures -----
     
@@ -94,11 +96,19 @@ open class HoveringPopUp: UIView {
     fileprivate func prepareFullSizeConstraints() {
         var width: NSLayoutConstraint!
         var height: NSLayoutConstraint!
-        width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: -40)
-        if direction == .top {
-            height = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
+        if let widthConstraint = self.fullSizeWidth {
+            width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: widthConstraint)
         } else {
-            height = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 70)
+            width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: -40)
+        }
+        if let heightConstraint = self.fullSizeHeight {
+            height = NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: heightConstraint)
+        } else {
+            if direction == .top {
+                height = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
+            } else {
+                height = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 70)
+            }            
         }
         self.popUpFullSizeWidthAndHeightConstraints = [width, height]
     }
@@ -141,7 +151,7 @@ open class HoveringPopUp: UIView {
           // - icon
         self.popUpView.iconDirection = iconDirection ?? .left
         self.popUpView.icon          = icon
-        self.popUpView.iconColor     = iconColor
+        self.popUpView.iconColor     = iconColor     ?? Color.title
         
         //Shadow
         self.popUpView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor
@@ -152,6 +162,13 @@ open class HoveringPopUp: UIView {
         //Border
         self.popUpView.layer.borderWidth = borderWidth ?? 0.0
         self.popUpView.layer.borderColor = borderColor?.cgColor
+    }
+    
+    //MARK: - Full size frame
+    
+    open func fullSizeFrameConstraints(width: CGFloat?, height: CGFloat?) {
+        self.fullSizeWidth = width
+        self.fullSizeHeight = height
     }
     
     //MARK: - Pop Up

@@ -183,7 +183,6 @@ class PopUpView: UIView {
         self.iconImageView = UIImageView(image: image)
         self.iconImageView?.contentMode = .scaleAspectFit
         self.addSubview(self.iconImageView!)
-        self.iconImageView?.tintColor = Color.title
         self.iconImageViewConstraints()
     }
     
