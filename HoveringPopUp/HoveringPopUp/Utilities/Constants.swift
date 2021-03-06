@@ -14,8 +14,8 @@ enum Main {
 
 enum Color {
     static let background = UIColor(named: "Background", in: Main.bundle, compatibleWith: nil)
-    static let title      = UIColor(named: "Title", in: Main.bundle, compatibleWith: nil)
-    static let subtitle   = UIColor(named: "Subtitle", in: Main.bundle, compatibleWith: nil)
+    static let title      = UIColor(named: "Title"     , in: Main.bundle, compatibleWith: nil)
+    static let subtitle   = UIColor(named: "Subtitle"  , in: Main.bundle, compatibleWith: nil)
 }
 
 enum Warning {

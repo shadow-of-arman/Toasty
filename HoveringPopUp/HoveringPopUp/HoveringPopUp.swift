@@ -109,13 +109,13 @@ open class HoveringPopUp: UIView {
     /// - Parameters:
     ///   - fullView: Sets the view to show when in full screen.
     ///   - title: Sets the title to show when in compact mode.
-    ///   - font: Sets the Font to use for the title inside the compact mode.
+    ///   - titleFont: Sets the Font to use for the title inside the compact mode.
     ///   - backgroundColor: Sets the background color to use for the compact mode.
-    ///   - textColor: Sets the color of the title in compact mode.
+    ///   - titleColor: Sets the color of the title in compact mode.
     ///   - shadowColor: Sets the shadow color of the pop up.
     ///   - borderWidth: Sets the border width of the pop up view.
     ///   - borderColor: Sets the border color of the pop up view.
-    open func preparePopUp(title: String, font: UIFont? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, textColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
+    open func preparePopUp(title: String, titleFont: UIFont? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
         self.removeFromSuperview()
         self.findMainWindow()
         guard let window = self.mainWindow else {
@@ -128,10 +128,24 @@ open class HoveringPopUp: UIView {
         if let view = fullView {
             self.popUpView.view = view
         }
+        //Customize
+          //title
+        self.popUpView.title           = title
+        self.popUpView.titleFont       = titleFont ?? .monospacedDigitSystemFont(ofSize: 13.5, weight: .medium)
+        self.popUpView.backgroundColor = backgroundColor ?? Color.background
+        self.popUpView.titleColor      = titleColor ?? Color.title
+          //subtitle
+        self.popUpView
+        
+        //Shadow
         self.popUpView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor
         self.popUpView.layer.shadowOffset  = shadowOffset  ?? .init(width: 0, height: 6)
         self.popUpView.layer.shadowOpacity = shadowOpacity ?? 0.25
         self.popUpView.layer.shadowRadius  = shadowRadius  ?? 20
+        
+        //Border
+        self.popUpView.layer.borderWidth = borderWidth ?? 0.0
+        self.popUpView.layer.borderColor = borderColor?.cgColor
     }
     
     //MARK: - Pop Up
@@ -145,14 +159,15 @@ open class HoveringPopUp: UIView {
     /// - Parameter expandable: Adds a tap gesture to expand the toast and show the view that was inserted at prep time.
     /// - Parameter autoDismiss: Allows toast to hide/dismiss automatically after a certain time.
     /// - Parameter activeDuration: Sets the time it takes for the toast to hide/dismiss if auto dismiss is true.
-    open func show(from direction: HoveringPopUpDirection, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
+    open func show(from direction: HoveringPopUpDirection, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, cornerRadius: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
+        //since `directionTransform` is always set after showing, it is used to determine if it's being shown already thereby eliminating the need to show again.
         if self.directionTransform == nil {
             self.addSubview(self.popUpView)
             self.direction = direction
             self.configPopUpFrame(width: width, height: height, offset: offset ?? -5)
             UIView.animate(withDuration: animationDuration ?? 0.45, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
                 self.popUpView.transform = .identity
-                self.popUpView.layer.cornerRadius = 25
+                self.popUpView.layer.cornerRadius = cornerRadius ?? 25.0
             }
             expandability: if expandable ?? true {
                 if self.popUpView.view == nil {

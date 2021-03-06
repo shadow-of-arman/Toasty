@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     fileprivate func preparePopUp() {
         let view = UIView()
         view.backgroundColor = .gray
-        self.popUpView.preparePopUp(title: "Question", font: nil, fullView: view, backgroundColor: nil, textColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+        self.popUpView.preparePopUp(title: "Silent Mode", titleFont: nil, fullView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
     }
     
     //MARK: - popButton
@@ -48,6 +48,7 @@ class ViewController: UIViewController {
         self.popButtonConstraints()
         self.popButton.backgroundColor = .systemRed
         self.popButton.setTitle("show", for: .normal)
+        self.popButton.layer.cornerRadius = 10
         self.popButton.addTarget(self, action: #selector(self.popUp), for: .touchUpInside)
     }
     
@@ -68,6 +69,7 @@ class ViewController: UIViewController {
         self.hideButtonConstraints()
         self.hideButton.backgroundColor = .systemBlue
         self.hideButton.setTitle("hide", for: .normal)
+        self.hideButton.layer.cornerRadius = 10
         self.hideButton.addTarget(self, action: #selector(self.hide(_:)), for: .touchUpInside)
     }
     

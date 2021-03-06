@@ -16,6 +16,9 @@ class PopUpView: UIView {
     
     //MARK: ----- Variables -----
     
+    fileprivate var subtitleLabel : UILabel?
+
+    
     /// Sets the current type of the popUpView
     internal var type : HoveringPopUpState = .compact {
         didSet {
@@ -31,8 +34,27 @@ class PopUpView: UIView {
         }
     }
     
-    fileprivate var subtitleLabel : UILabel?
+    /// Sets the title.
+    internal var title : String? {
+        didSet {
+            self.titleLabel.text = self.title            
+        }
+    }
     
+    /// Sets the title color.
+    internal var titleColor : UIColor? {
+        didSet {
+            self.titleLabel.textColor = self.titleColor
+        }
+    }
+    
+    /// Sets the font.
+    internal var titleFont : UIFont? {
+        didSet {
+            self.titleLabel.font = self.titleFont
+        }
+    }
+        
     //MARK: - View Lifecycle
     
     /// Initializes and returns a newly allocated view object with the specified frame rectangle.
@@ -53,7 +75,6 @@ class PopUpView: UIView {
     
     fileprivate func initialConfig() {
         self.labelConfig()
-        self.backgroundColor = Color.background
     }
     
     //MARK: - Label
@@ -62,7 +83,6 @@ class PopUpView: UIView {
     fileprivate func labelConfig() {
         self.addSubview(self.titleLabel)
         self.titleLabel.textAlignment = .center
-        titleLabel.text = "Silent Mode"
         self.titleLabel.textColor = Color.title
         self.titleLabel.font = .monospacedDigitSystemFont(ofSize: 13.5, weight: .medium)
         self.labelConstraints()
