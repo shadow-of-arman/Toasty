@@ -17,7 +17,9 @@ class PopUpView: UIView {
     //MARK: ----- Variables -----
     
     fileprivate var titleCenterYConstraint : NSLayoutConstraint?
+    fileprivate var titleCenterXConstraint : NSLayoutConstraint?
     fileprivate var subtitleLabel : UILabel?
+    fileprivate var iconImageView : UIImageView?
     
     /// Sets the current type of the popUpView
     internal var type : HoveringPopUpState = .compact {
@@ -85,6 +87,31 @@ class PopUpView: UIView {
             }
         }
     }
+    
+    /// Decides where to put the icon.
+    internal var iconDirection: HoveringPopUpIconDirection? = .left
+    
+    /// Configures the icon image view and sets the icon as it's image.
+    internal var icon: UIImage? {
+        didSet {
+            if let icon = self.icon {
+                if self.iconImageView == nil {
+                    self.iconImageViewConfig(image: icon)
+                } else {
+                    self.iconImageView?.image = icon
+                }
+            }
+        }
+    }
+    
+    internal var iconColor: UIColor? {
+        didSet {
+            if let color = iconColor {
+                self.iconImageView?.image?.withRenderingMode(.alwaysTemplate)
+                self.iconImageView?.tintColor = color
+            }
+        }
+    }
         
     //MARK: - View Lifecycle
     
@@ -121,8 +148,8 @@ class PopUpView: UIView {
     fileprivate func labelConstraints() {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleCenterYConstraint =  NSLayoutConstraint(item: self.titleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
-        NSLayoutConstraint(item: self.titleLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        self.titleCenterYConstraint?.isActive = true
+        self.titleCenterXConstraint =  NSLayoutConstraint(item: self.titleLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        NSLayoutConstraint.activate([self.titleCenterYConstraint!, self.titleCenterXConstraint!])
     }
     
     //MARK: - Subtitle
@@ -141,6 +168,36 @@ class PopUpView: UIView {
         self.titleCenterYConstraint?.constant = -8.5
         NSLayoutConstraint(item: self.subtitleLabel!, attribute: .top, relatedBy: .equal, toItem: self.titleLabel, attribute: .bottom, multiplier: 1, constant: 1).isActive = true
         NSLayoutConstraint(item: self.subtitleLabel!, attribute: .centerX, relatedBy: .equal, toItem: self.titleLabel, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+    }
+    
+    //MARK: - Icon
+    
+    //config
+    fileprivate func iconImageViewConfig(image: UIImage) {
+        self.iconImageView = UIImageView(image: image)
+        self.iconImageView?.contentMode = .scaleAspectFit
+        self.addSubview(self.iconImageView!)
+        self.iconImageView?.tintColor = Color.title
+        self.iconImageViewConstraints()
+    }
+    
+    //constraints
+    fileprivate func iconImageViewConstraints() {
+        self.iconImageView?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: self.iconImageView!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 7.5).isActive = true
+        if self.iconDirection == .left {
+            NSLayoutConstraint(item: self.iconImageView!, attribute: .right, relatedBy: .equal, toItem: self.titleLabel, attribute: .left, multiplier: 1, constant: -15).isActive = true
+        } else {
+            NSLayoutConstraint(item: self.iconImageView!, attribute: .left, relatedBy: .equal, toItem: self.titleLabel, attribute: .right, multiplier: 1, constant: 15).isActive = true
+        }
+        NSLayoutConstraint(item: self.iconImageView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -7.5).isActive = true
+        NSLayoutConstraint(item: self.iconImageView!, attribute: .width, relatedBy: .equal, toItem: self.iconImageView!, attribute: .height, multiplier: 1, constant: 0).isActive = true
+        self.layoutSubviews()
+        if self.iconDirection == .left {
+            self.titleCenterXConstraint?.constant = (self.iconImageView?.frame.width)! / 1.2
+        } else {
+            self.titleCenterXConstraint?.constant = -(self.iconImageView?.frame.width)! / 1.2
+        }
     }
     
     //MARK: - Add View
@@ -168,10 +225,12 @@ class PopUpView: UIView {
             UIView.animate(withDuration: 0.15) {
                 self.titleLabel.alpha     = 1
                 self.subtitleLabel?.alpha = 1
+                self.iconImageView?.alpha = 1
             }
         case .fullSize:
             self.titleLabel.alpha     = 0
             self.subtitleLabel?.alpha = 0
+            self.iconImageView?.alpha = 0
             UIView.animate(withDuration: 0.4) {
                 self.view?.alpha = 1
             }

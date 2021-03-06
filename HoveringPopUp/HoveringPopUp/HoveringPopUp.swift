@@ -115,7 +115,7 @@ open class HoveringPopUp: UIView {
     ///   - shadowColor: Sets the shadow color of the pop up.
     ///   - borderWidth: Sets the border width of the pop up view.
     ///   - borderColor: Sets the border color of the pop up view.
-    open func preparePopUp(title: String, titleFont: UIFont? = nil, subtitle: String? = nil, subtitleFont: UIFont? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, subtitleColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
+    open func preparePopUp(title: String, titleFont: UIFont? = nil, subtitle: String? = nil, subtitleFont: UIFont? = nil, icon: UIImage? = nil, iconDirection: HoveringPopUpIconDirection? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, subtitleColor: UIColor? = nil, iconColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
         self.removeFromSuperview()
         self.findMainWindow()
         guard let window = self.mainWindow else {
@@ -139,7 +139,9 @@ open class HoveringPopUp: UIView {
         self.popUpView.subtitleFont  = subtitleFont  ?? .monospacedDigitSystemFont(ofSize: 13, weight: .medium)
         self.popUpView.subTitleColor = subtitleColor ?? Color.subtitle
           //icon
-        
+        self.popUpView.iconDirection = iconDirection ?? .left
+        self.popUpView.icon          = icon
+        self.popUpView.iconColor     = iconColor
         
         //Shadow
         self.popUpView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor

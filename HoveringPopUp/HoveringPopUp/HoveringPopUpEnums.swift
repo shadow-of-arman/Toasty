@@ -16,3 +16,8 @@ public enum HoveringPopUpDirection {
     case top
     case bottom
 }
+
+public enum HoveringPopUpIconDirection {
+    case left
+    case right
+}

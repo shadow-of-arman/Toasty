@@ -39,7 +39,11 @@ class ViewController: UIViewController {
     fileprivate func preparePopUp() {
         let view = UIView()
         view.backgroundColor = .gray
-        self.popUpView.preparePopUp(title: "Silent Mode", titleFont: nil, subtitle: "On", fullView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+        if #available(iOS 13.0, *) {
+            self.popUpView.preparePopUp(title: "Silent Mode", titleFont: nil, subtitle: "On", icon: UIImage(systemName: "speaker.slash.fill"), fullView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     //MARK: - popButton
