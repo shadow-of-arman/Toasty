@@ -93,10 +93,18 @@ class ViewController: UIViewController {
     @objc fileprivate func popUp(_ target: UIButton) {
         self.preparePopUp()
         if self.exampleOn == true {
-            self.popUpView.show(from: .top, changeSubtitle: "Off", autoDismiss: false)
+            if #available(iOS 13.0, *) {
+                self.popUpView.show(from: .top, changeSubtitle: "Off", changeIcon: UIImage(systemName: "speaker.slash.fill"), autoDismiss: false)
+            } else {
+                // Fallback on earlier versions
+            }
             self.exampleOn = false
         } else {
-            self.popUpView.show(from: .top, changeSubtitle: "On", autoDismiss: false)
+            if #available(iOS 13.0, *) {
+                self.popUpView.show(from: .top, changeSubtitle: "On", changeIcon: UIImage(systemName: "speaker.fill"), autoDismiss: false)
+            } else {
+                // Fallback on earlier versions
+            }
             self.exampleOn = true
         }
     }

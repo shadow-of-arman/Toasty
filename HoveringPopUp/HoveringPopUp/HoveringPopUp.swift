@@ -165,9 +165,17 @@ open class HoveringPopUp: UIView {
     /// - Parameter expandable: Adds a tap gesture to expand the toast and show the view that was inserted at prep time.
     /// - Parameter autoDismiss: Allows toast to hide/dismiss automatically after a certain time.
     /// - Parameter activeDuration: Sets the time it takes for the toast to hide/dismiss if auto dismiss is true.
-    open func show(from direction: HoveringPopUpDirection, changeSubtitle: String? = nil, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, cornerRadius: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
+    open func show(from direction: HoveringPopUpDirection, changeSubtitle: String? = nil, changeIcon: UIImage? = nil, changeIconColor: UIColor? = nil, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, cornerRadius: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
         UIView.transition(with: self.popUpView, duration: 0.25, options: .transitionCrossDissolve) {
-            self.popUpView.subtitle = changeSubtitle
+            if let text = changeSubtitle {
+                self.popUpView.subtitle = text
+            }
+            if let icon = changeIcon {
+                self.popUpView.icon = icon
+            }
+            if let color = changeIconColor {
+                self.popUpView.iconColor = color
+            }
         }
         //since `directionTransform` is always set after showing, it is used to determine if it's being shown already thereby eliminating the need to show again.
         if self.directionTransform == nil {
