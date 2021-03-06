@@ -26,9 +26,9 @@ open class HoveringPopUp: UIView {
     fileprivate var popUpInitialConstraints                : [NSLayoutConstraint] = []
     fileprivate var popUpCompactWidthAndHeightConstraints  : [NSLayoutConstraint] = []
     fileprivate var popUpFullSizeWidthAndHeightConstraints : [NSLayoutConstraint] = []
-    fileprivate var mainWindow: UIWindow?
-    fileprivate var direction : HoveringPopUpDirection = .top
-    fileprivate var directionTransform : CGAffineTransform?
+    fileprivate var mainWindow             : UIWindow?
+    fileprivate var direction              : HoveringPopUpDirection = .top
+    fileprivate var directionTransform     : CGAffineTransform?
     fileprivate var dismissButtonTransform : CGAffineTransform?
     fileprivate var dismissButton          : UIButton?
     
@@ -198,7 +198,12 @@ open class HoveringPopUp: UIView {
         self.dismissButton?.alpha = 0
         self.dismissButton?.setTitle("X", for: .normal)
         self.dismissButton?.setTitleColor(UIColor.lightGray, for: .normal)
-        self.dismissButton?.transform = .init(translationX: 0, y: 40)
+        switch direction {
+        case .top:
+            self.dismissButton?.transform = .init(translationX: 0, y: 40)
+        case .bottom:
+            self.dismissButton?.transform = .init(translationX: 0, y: -40)
+        }
         self.dismissButtonTransform = self.dismissButton?.transform
         self.dismissButton?.addTarget(self, action: #selector(self.changeMode), for: .touchUpInside)
         self.layoutSubviews()
@@ -208,7 +213,12 @@ open class HoveringPopUp: UIView {
     fileprivate func dismissButtonConstraints() {
         self.dismissButton?.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: self.dismissButton!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: self.dismissButton!, attribute: .bottom, relatedBy: .equal, toItem: self.popUpView, attribute: .top, multiplier: 1, constant: -5).isActive = true
+        switch direction {
+        case .top:
+            NSLayoutConstraint(item: self.dismissButton!, attribute: .bottom, relatedBy: .equal, toItem: self.popUpView, attribute: .top, multiplier: 1, constant: -5).isActive = true
+        case .bottom:
+            NSLayoutConstraint(item: self.dismissButton!, attribute: .top, relatedBy: .equal, toItem: self.popUpView, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+        }
         NSLayoutConstraint(item: self.dismissButton!, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: 30).isActive = true
         NSLayoutConstraint(item: self.dismissButton!, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30).isActive = true
     }
