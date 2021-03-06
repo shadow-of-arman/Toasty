@@ -16,6 +16,7 @@ class PopUpView: UIView {
     
     //MARK: ----- Variables -----
     
+    fileprivate var titleCenterYConstraint : NSLayoutConstraint?
     fileprivate var subtitleLabel : UILabel?
     
     /// Sets the current type of the popUpView
@@ -58,8 +59,11 @@ class PopUpView: UIView {
     internal var subtitle : String? {
         didSet {
             if let text = self.subtitle {
-                
-                self.subtitleLabel?.text = text
+                if self.subtitleLabel == nil {
+                    self.subTitleLabelConfig(text: text)
+                } else {
+                    self.subtitleLabel?.text = text
+                }
             }
         }
     }
@@ -104,7 +108,7 @@ class PopUpView: UIView {
         self.labelConfig()
     }
     
-    //MARK: - Label
+    //MARK: - Title
     
     //config
     fileprivate func labelConfig() {
@@ -116,8 +120,27 @@ class PopUpView: UIView {
     //constraints
     fileprivate func labelConstraints() {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: self.titleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        self.titleCenterYConstraint =  NSLayoutConstraint(item: self.titleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         NSLayoutConstraint(item: self.titleLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        self.titleCenterYConstraint?.isActive = true
+    }
+    
+    //MARK: - Subtitle
+    
+    //config
+    fileprivate func subTitleLabelConfig(text: String) {
+        self.subtitleLabel = UILabel()
+        self.addSubview(self.subtitleLabel!)
+        self.subtitleLabelConstraints()
+        self.subtitleLabel?.text = text
+    }
+    
+    //constraints
+    fileprivate func subtitleLabelConstraints() {
+        self.subtitleLabel?.translatesAutoresizingMaskIntoConstraints = false
+        self.titleCenterYConstraint?.constant = -8.5
+        NSLayoutConstraint(item: self.subtitleLabel!, attribute: .top, relatedBy: .equal, toItem: self.titleLabel, attribute: .bottom, multiplier: 1, constant: 1).isActive = true
+        NSLayoutConstraint(item: self.subtitleLabel!, attribute: .centerX, relatedBy: .equal, toItem: self.titleLabel, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
     }
     
     //MARK: - Add View

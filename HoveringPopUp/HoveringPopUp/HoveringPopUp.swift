@@ -131,12 +131,12 @@ open class HoveringPopUp: UIView {
         //Customize
           //title
         self.popUpView.title           = title
-        self.popUpView.titleFont       = titleFont ?? .monospacedDigitSystemFont(ofSize: 13.5, weight: .medium)
+        self.popUpView.titleFont       = titleFont       ?? .monospacedDigitSystemFont(ofSize: 13.25, weight: .medium)
         self.popUpView.backgroundColor = backgroundColor ?? Color.background
-        self.popUpView.titleColor      = titleColor ?? Color.title
+        self.popUpView.titleColor      = titleColor      ?? Color.title
           //subtitle
         self.popUpView.subtitle      = subtitle
-        self.popUpView.subtitleFont  = subtitleFont
+        self.popUpView.subtitleFont  = subtitleFont  ?? .monospacedDigitSystemFont(ofSize: 13, weight: .medium)
         self.popUpView.subTitleColor = subtitleColor ?? Color.subtitle
           //icon
         
