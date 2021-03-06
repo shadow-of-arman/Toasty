@@ -66,6 +66,9 @@ class PopUpView: UIView {
                 } else {
                     self.subtitleLabel?.text = text
                 }
+            } else {
+                self.subtitleLabel?.removeFromSuperview()
+                self.subtitleLabel = nil
             }
         }
     }
@@ -100,6 +103,9 @@ class PopUpView: UIView {
                 } else {
                     self.iconImageView?.image = icon
                 }
+            } else {
+                self.iconImageView?.removeFromSuperview()
+                self.iconImageView = nil
             }
         }
     }
@@ -217,6 +223,8 @@ class PopUpView: UIView {
         NSLayoutConstraint(item: self.view!, attribute: .width  , relatedBy: .equal, toItem: self, attribute: .width  , multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: self.view!, attribute: .height , relatedBy: .equal, toItem: self, attribute: .height , multiplier: 1, constant: 0).isActive = true
     }
+    
+    //MARK: - Change mode
     
     fileprivate func changeMode() {
         switch type {
