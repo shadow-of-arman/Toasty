@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .white
         self.popButtonConfig()
         self.hideButtonConfig()
-        self.popUpView.fullSizeFrameConstraints(width: UIScreen.main.bounds.width - 20, height: 200)
+        self.popUpView.fullSizeFrameConstraints(width: UIScreen.main.bounds.width - 30, height: 200)
     }
     
     //MARK: - Prepare pop up

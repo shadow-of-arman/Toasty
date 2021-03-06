@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// A toast notification view.
 open class HoveringPopUp: UIView {
     
     //MARK: ----- Constants -----
@@ -166,6 +167,10 @@ open class HoveringPopUp: UIView {
     
     //MARK: - Full size frame
     
+    /// Sets pre determined width and height constant constraints for the full size mode.
+    /// - Parameters:
+    ///   - width: Sets the constant width constraint.
+    ///   - height: Sets the constant height constraint.
     open func fullSizeFrameConstraints(width: CGFloat?, height: CGFloat?) {
         self.fullSizeWidth = width
         self.fullSizeHeight = height

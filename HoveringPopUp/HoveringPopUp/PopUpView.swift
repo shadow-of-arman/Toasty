@@ -110,6 +110,7 @@ class PopUpView: UIView {
         }
     }
     
+    /// Sets the color of the chosen icon.
     internal var iconColor: UIColor? {
         didSet {
             if let color = iconColor {
