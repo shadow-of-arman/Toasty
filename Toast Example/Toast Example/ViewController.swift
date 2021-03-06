@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     let popButton  = UIButton()
     let hideButton = UIButton()
     
+    var exampleOn = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createUI()
@@ -86,7 +88,13 @@ class ViewController: UIViewController {
     
     @objc fileprivate func popUp(_ target: UIButton) {
         self.preparePopUp()
-        self.popUpView.show(from: .top, autoDismiss: false)
+        if self.exampleOn == true {
+            self.popUpView.show(from: .top, changeSubtitle: "Off", autoDismiss: false)
+            self.exampleOn = false
+        } else {
+            self.popUpView.show(from: .top, changeSubtitle: "On", autoDismiss: false)
+            self.exampleOn = true
+        }
     }
     
     @objc fileprivate func hide(_ target: UIButton) {
