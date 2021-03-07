@@ -190,13 +190,13 @@ class PopUpView: UIView {
     //constraints
     fileprivate func iconImageViewConstraints() {
         self.iconImageView?.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: self.iconImageView!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 7.5).isActive = true
+        NSLayoutConstraint(item: self.iconImageView!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 10).isActive = true
         if self.iconDirection == .left {
             NSLayoutConstraint(item: self.iconImageView!, attribute: .right, relatedBy: .equal, toItem: self.titleLabel, attribute: .left, multiplier: 1, constant: -15).isActive = true
         } else {
             NSLayoutConstraint(item: self.iconImageView!, attribute: .left, relatedBy: .equal, toItem: self.titleLabel, attribute: .right, multiplier: 1, constant: 15).isActive = true
         }
-        NSLayoutConstraint(item: self.iconImageView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -7.5).isActive = true
+        NSLayoutConstraint(item: self.iconImageView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -10).isActive = true
         NSLayoutConstraint(item: self.iconImageView!, attribute: .width, relatedBy: .equal, toItem: self.iconImageView!, attribute: .height, multiplier: 1, constant: 0).isActive = true
         self.layoutSubviews()
         if self.iconDirection == .left {

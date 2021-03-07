@@ -114,18 +114,27 @@ open class HoveringPopUp: UIView {
         self.popUpFullSizeWidthAndHeightConstraints = [width, height]
     }
     
-    //MARK: - Preperation
+    //MARK: - Preparation
     
     /// Prepares the popUpViewToShow
     /// - Parameters:
     ///   - fullView: Sets the view to show when in full screen.
     ///   - title: Sets the title to show when in compact mode.
     ///   - titleFont: Sets the Font to use for the title inside the compact mode.
+    ///   - subtitle: Sets a subtitle with the string as text.
+    ///   - subtitleFont: Sets the subtitle font if it exists.
+    ///   - icon: Sets an icon with the given image.
+    ///   - iconDirection: Sets the position of the icon.
     ///   - backgroundColor: Sets the background color to use for the compact mode.
     ///   - titleColor: Sets the color of the title in compact mode.
+    ///   - subtitleColor: Sets the color of the subtitle.
+    ///   - iconColor: Sets the color of the icon.
     ///   - shadowColor: Sets the shadow color of the pop up.
     ///   - borderWidth: Sets the border width of the pop up view.
     ///   - borderColor: Sets the border color of the pop up view.
+    ///   - shadowOffset: Sets the shadow offset of the toast.
+    ///   - shadowOpacity: Sets the shadow opacity of the toast.
+    ///   - shadowRadius: Sets the shadow radius of the toast.
     open func preparePopUp(title: String, titleFont: UIFont? = nil, subtitle: String? = nil, subtitleFont: UIFont? = nil, icon: UIImage? = nil, iconDirection: HoveringPopUpIconDirection? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, subtitleColor: UIColor? = nil, iconColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
         self.removeFromSuperview()
         self.findMainWindow()
@@ -180,10 +189,14 @@ open class HoveringPopUp: UIView {
     
     /// Shows toast notification.
     /// - Parameter direction: Sets the direction to display to pop up from.
+    /// - Parameter changeSubtitle: Changes the subtitle to a new string.
+    /// - Parameter changeIcon: Changes the icon to a new image.
+    /// - Parameter changeIconColor: Changes the icon color if it exists with a cross fade transition.
     /// - Parameter width: Sets the width.
     /// - Parameter height: Sets the height.
     /// - Parameter animationDuration: Sets the animation duration.
     /// - Parameter offset: Sets an offset from the top or bottom according to the direction.
+    /// - Parameter cornerRadius: Sets the corner radius of the toast.
     /// - Parameter expandable: Adds a tap gesture to expand the toast and show the view that was inserted at prep time.
     /// - Parameter autoDismiss: Allows toast to hide/dismiss automatically after a certain time.
     /// - Parameter activeDuration: Sets the time it takes for the toast to hide/dismiss if auto dismiss is true.
@@ -291,7 +304,7 @@ open class HoveringPopUp: UIView {
         }
     }
     
-    //MARK: - modes
+    //MARK: - Modes
     
     fileprivate func fullSizeMode() {
         self.dismissButtonConfig()
