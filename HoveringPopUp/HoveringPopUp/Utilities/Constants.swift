@@ -8,11 +8,15 @@
 import Foundation
 import UIKit
 
+//MARK: ---------- Main ----------
+
 /// The enum used to access main, commonly used values or functions.
 enum Main {
     /// The bundle identifier of the framework.
     static let bundle = Bundle.init(identifier: "shadow.co.HoveringPopUp")
 }
+
+//MARK: ---------- Color ----------
 
 /// The enum used to access common colors throughout the framework.
 enum Color {
@@ -23,6 +27,8 @@ enum Color {
     /// The color of the subtitle text.
     static let subtitle   = UIColor(named: "Subtitle"  , in: Main.bundle, compatibleWith: nil)
 }
+
+//MARK: ---------- Warning ----------
 
 /// The enum used to display warnings throughout to the framework.
 enum Warning {

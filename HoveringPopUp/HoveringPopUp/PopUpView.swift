@@ -200,9 +200,9 @@ class PopUpView: UIView {
         NSLayoutConstraint(item: self.iconImageView!, attribute: .width, relatedBy: .equal, toItem: self.iconImageView!, attribute: .height, multiplier: 1, constant: 0).isActive = true
         self.layoutSubviews()
         if self.iconDirection == .left {
-            self.titleCenterXConstraint?.constant = (self.iconImageView?.frame.width)! / 1.2
+            self.titleCenterXConstraint?.constant = 15
         } else {
-            self.titleCenterXConstraint?.constant = -(self.iconImageView?.frame.width)! / 1.2
+            self.titleCenterXConstraint?.constant = -15
         }
     }
     
