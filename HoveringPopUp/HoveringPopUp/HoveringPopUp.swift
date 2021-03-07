@@ -18,12 +18,9 @@ open class HoveringPopUp: UIView {
     
     //MARK: ----- Variables -----
     
-    /// Sets the text to show in the title when in compact mode.
-    open var compactTitleText: String? {
-        didSet {
-            compactLabel.text = self.compactTitleText ?? "POP"
-        }
-    }
+    /// Used to identify when the toast is on screen.
+    open private(set) var isVisible : Bool = false
+    
     fileprivate var popUpInitialConstraints                : [NSLayoutConstraint] = []
     fileprivate var popUpCompactWidthAndHeightConstraints  : [NSLayoutConstraint] = []
     fileprivate var popUpFullSizeWidthAndHeightConstraints : [NSLayoutConstraint] = []
@@ -214,6 +211,7 @@ open class HoveringPopUp: UIView {
         }
         //since `directionTransform` is always set after showing, it is used to determine if it's being shown already thereby eliminating the need to show again.
         if self.directionTransform == nil {
+            self.isVisible = true
             self.addSubview(self.popUpView)
             self.direction = direction
             self.configPopUpFrame(width: width, height: height, offset: offset ?? -5)
@@ -239,7 +237,7 @@ open class HoveringPopUp: UIView {
         }
     }
     
-    /// Hides toast notification.
+    /// Hides / dismisses toast notification.
     /// - Parameter animationDuration: Sets the animation duration.
     open func hide(animationDuration: TimeInterval? = nil) {
         UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
@@ -252,6 +250,26 @@ open class HoveringPopUp: UIView {
                 print("Toast is not yet shown.")
             }
         } completion: { (_) in
+            self.isVisible = false
+            self.directionTransform = nil
+            self.popUpView.removeFromSuperview()
+        }
+    }
+    
+    /// Hides / dismisses toast notification.
+    /// - Parameter animationDuration: Sets the animation duration.
+    open func dismiss(animationDuration: TimeInterval? = nil) {
+        UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
+            if let transform = self.directionTransform {
+                if self.popUpView.type == .fullSize {
+                    self.compactMode()
+                }
+                self.popUpView.transform = transform
+            } else {
+                print("Toast is not yet shown.")
+            }
+        } completion: { (_) in
+            self.isVisible = false
             self.directionTransform = nil
             self.popUpView.removeFromSuperview()
         }
