@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import HoveringPopUp
+import Toasty
 
 class ViewController: UIViewController {
 
-    let popUpView = HoveringPopUp()
+    let toast = Toasty()
     
-    let popButton  = UIButton()
+    let showButton  = UIButton()
     let hideButton = UIButton()
     
     var exampleOn = false
@@ -30,42 +30,42 @@ class ViewController: UIViewController {
     
     fileprivate func createUI() {
         self.view.backgroundColor = .white
-        self.popButtonConfig()
+        self.showButtonConfig()
         self.hideButtonConfig()
-        self.popUpView.fullSizeFrameConstraints(width: UIScreen.main.bounds.width - 30, height: 200)
+        self.toast.fullSizeFrameConstraints(width: UIScreen.main.bounds.width - 30, height: 200)
     }
     
-    //MARK: - Prepare pop up
+    //MARK: - Prepare toast
     
-    fileprivate func preparePopUp() {
+    fileprivate func prepareToasty() {
         let view = UIView()
         view.backgroundColor = .lightGray
         if #available(iOS 13.0, *) {
-            self.popUpView.preparePopUp(title: "Silent Mode", titleFont: nil, subtitle: "On", icon: UIImage(systemName: "speaker.slash.fill"), fullView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+            self.toast.prepareToast(title: "Silent Mode", titleFont: nil, subtitle: "On", icon: UIImage(systemName: "speaker.slash.fill"), expandedView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
         } else {
             // Fallback on earlier versions
         }
     }
     
-    //MARK: - popButton
+    //MARK: - showButton
     
     //config
-    fileprivate func popButtonConfig() {
-        self.view.addSubview(self.popButton)
-        self.popButtonConstraints()
-        self.popButton.backgroundColor = .systemRed
-        self.popButton.setTitle("show", for: .normal)
-        self.popButton.layer.cornerRadius = 10
-        self.popButton.addTarget(self, action: #selector(self.popUp), for: .touchUpInside)
+    fileprivate func showButtonConfig() {
+        self.view.addSubview(self.showButton)
+        self.showButtonConstraints()
+        self.showButton.backgroundColor = .systemRed
+        self.showButton.setTitle("show", for: .normal)
+        self.showButton.layer.cornerRadius = 10
+        self.showButton.addTarget(self, action: #selector(self.showToast), for: .touchUpInside)
     }
     
     //constraints
-    fileprivate func popButtonConstraints() {
-        self.popButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: self.popButton, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-            NSLayoutConstraint(item: self.popButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: self.popButton, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 0, constant: 100).isActive = true
-        NSLayoutConstraint(item: self.popButton, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0, constant: 40).isActive = true
+    fileprivate func showButtonConstraints() {
+        self.showButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: self.showButton, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: self.showButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: self.showButton, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 0, constant: 100).isActive = true
+        NSLayoutConstraint(item: self.showButton, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0, constant: 40).isActive = true
     }
     
     //MARK: - HideButton
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
     //constraints
     fileprivate func hideButtonConstraints() {
         self.hideButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: self.hideButton, attribute: .top, relatedBy: .equal, toItem: self.popButton, attribute: .bottom, multiplier: 1, constant: 20).isActive = true
+        NSLayoutConstraint(item: self.hideButton, attribute: .top, relatedBy: .equal, toItem: self.showButton, attribute: .bottom, multiplier: 1, constant: 20).isActive = true
         NSLayoutConstraint(item: self.hideButton, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: self.hideButton, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 0, constant: 100).isActive = true
         NSLayoutConstraint(item: self.hideButton, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0, constant: 40).isActive = true
@@ -91,18 +91,18 @@ class ViewController: UIViewController {
 
     //MARK: - objc
     
-    @objc fileprivate func popUp(_ target: UIButton) {
-        self.preparePopUp()
+    @objc fileprivate func showToast(_ target: UIButton) {
+        self.prepareToasty()
         if self.exampleOn == true {
             if #available(iOS 13.0, *) {
-                self.popUpView.show(from: .top, changeSubtitle: "Off", changeIcon: UIImage(systemName: "speaker.slash.fill"), autoDismiss: false)
+                self.toast.show(from: .top, changeSubtitle: "Off", changeIcon: UIImage(systemName: "speaker.slash.fill"), autoDismiss: false)
             } else {
                 // Fallback on earlier versions
             }
             self.exampleOn = false
         } else {
             if #available(iOS 13.0, *) {
-                self.popUpView.show(from: .top, changeSubtitle: "On", changeIcon: UIImage(systemName: "speaker.fill"), autoDismiss: false)
+                self.toast.show(from: .top, changeSubtitle: "On", changeIcon: UIImage(systemName: "speaker.fill"), autoDismiss: false)
             } else {
                 // Fallback on earlier versions
             }
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
     }
     
     @objc fileprivate func hide(_ target: UIButton) {
-        self.popUpView.hide()
+        self.toast.hide()
     }
 
 }

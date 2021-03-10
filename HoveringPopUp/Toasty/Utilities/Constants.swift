@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  HoveringPopUp
+//  Toasty
 //
 //  Created by Arman Zoghi on 3/3/21.
 //
@@ -13,7 +13,7 @@ import UIKit
 /// The enum used to access main, commonly used values or functions.
 enum Main {
     /// The bundle identifier of the framework.
-    static let bundle = Bundle.init(identifier: "shadow.co.HoveringPopUp")
+    static let bundle = Bundle.init(identifier: "shadow.co.Toasty")
 }
 
 //MARK: ---------- Color ----------

@@ -1,6 +1,6 @@
 //
-//  HoveringPopUp.swift
-//  HoveringPopUp
+//  Toasty.swift
+//  Toasty
 //
 //  Created by Arman Zoghi on 3/2/21.
 //
@@ -9,23 +9,23 @@ import Foundation
 import UIKit
 
 /// A toast notification view.
-open class HoveringPopUp: UIView {
+open class Toasty: UIView {
     
     //MARK: ----- Constants -----
     
     fileprivate let compactLabel : UILabel   = UILabel()
-    fileprivate let popUpView    : PopUpView = PopUpView()
+    fileprivate let toastView    : ToastView = ToastView()
     
     //MARK: ----- Variables -----
     
     /// Used to identify when the toast is on screen.
     open private(set) var isVisible : Bool = false
     
-    fileprivate var popUpInitialConstraints                : [NSLayoutConstraint] = []
-    fileprivate var popUpCompactWidthAndHeightConstraints  : [NSLayoutConstraint] = []
-    fileprivate var popUpFullSizeWidthAndHeightConstraints : [NSLayoutConstraint] = []
+    fileprivate var toastInitialConstraints                : [NSLayoutConstraint] = []
+    fileprivate var toastCompactWidthAndHeightConstraints  : [NSLayoutConstraint] = []
+    fileprivate var toastExpandedWidthAndHeightConstraints : [NSLayoutConstraint] = []
     fileprivate var mainWindow             : UIWindow?
-    fileprivate var direction              : HoveringPopUpDirection = .top
+    fileprivate var direction              : ToastyDirection = .top
     fileprivate var directionTransform     : CGAffineTransform?
     fileprivate var dismissButtonTransform : CGAffineTransform?
     fileprivate var dismissButton          : UIButton?
@@ -66,28 +66,28 @@ open class HoveringPopUp: UIView {
         }
     }
     
-    //MARK: - Pop up frame
+    //MARK: - Toast frame
     
-    fileprivate func configPopUpFrame(width: CGFloat?, height: CGFloat?, offset: CGFloat?) {
-        self.popUpView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.deactivate(self.popUpInitialConstraints)
+    fileprivate func configToastFrame(width: CGFloat?, height: CGFloat?, offset: CGFloat?) {
+        self.toastView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.deactivate(self.toastInitialConstraints)
         var y: NSLayoutConstraint!
         switch self.direction {
         case .top:
-            y = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: offset ?? -5)
-            self.popUpView.transform = .init(translationX: 0, y: -(height ?? 50) - abs(offset ?? -5) - 100)
-            self.directionTransform = self.popUpView.transform
+            y = NSLayoutConstraint(item: self.toastView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: offset ?? -5)
+            self.toastView.transform = .init(translationX: 0, y: -(height ?? 50) - abs(offset ?? -5) - 100)
+            self.directionTransform = self.toastView.transform
         case .bottom:
-            y = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: offset ?? -5)
-            self.popUpView.transform = .init(translationX: 0, y: +(height ?? 50) + abs(offset ?? -5) + 100)
-            self.directionTransform = self.popUpView.transform 
+            y = NSLayoutConstraint(item: self.toastView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: offset ?? -5)
+            self.toastView.transform = .init(translationX: 0, y: +(height ?? 50) + abs(offset ?? -5) + 100)
+            self.directionTransform = self.toastView.transform
         }
-        let x = NSLayoutConstraint(item: self.popUpView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
-        let widthConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: width ?? 190)
-        let heightConstraint = NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: height ?? 50)
-        self.popUpCompactWidthAndHeightConstraints = [widthConstraint, heightConstraint]
-        self.popUpInitialConstraints = [x, y, widthConstraint, heightConstraint]
-        NSLayoutConstraint.activate(self.popUpInitialConstraints)
+        let x = NSLayoutConstraint(item: self.toastView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: self.toastView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: width ?? 190)
+        let heightConstraint = NSLayoutConstraint(item: self.toastView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: height ?? 50)
+        self.toastCompactWidthAndHeightConstraints = [widthConstraint, heightConstraint]
+        self.toastInitialConstraints = [x, y, widthConstraint, heightConstraint]
+        NSLayoutConstraint.activate(self.toastInitialConstraints)
         self.prepareFullSizeConstraints()
     }
     
@@ -95,27 +95,27 @@ open class HoveringPopUp: UIView {
         var width: NSLayoutConstraint!
         var height: NSLayoutConstraint!
         if let widthConstraint = self.fullSizeWidth {
-            width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: widthConstraint)
+            width = NSLayoutConstraint(item: self.toastView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: widthConstraint)
         } else {
-            width = NSLayoutConstraint(item: self.popUpView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: -40)
+            width = NSLayoutConstraint(item: self.toastView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: -40)
         }
         if let heightConstraint = self.fullSizeHeight {
-            height = NSLayoutConstraint(item: self.popUpView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: heightConstraint)
+            height = NSLayoutConstraint(item: self.toastView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: heightConstraint)
         } else {
             if direction == .top {
-                height = NSLayoutConstraint(item: self.popUpView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
+                height = NSLayoutConstraint(item: self.toastView, attribute: .bottom, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
             } else {
-                height = NSLayoutConstraint(item: self.popUpView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 70)
+                height = NSLayoutConstraint(item: self.toastView, attribute: .top, relatedBy: .equal, toItem: self.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 70)
             }            
         }
-        self.popUpFullSizeWidthAndHeightConstraints = [width, height]
+        self.toastExpandedWidthAndHeightConstraints = [width, height]
     }
     
     //MARK: - Preparation
     
-    /// Prepares the popUpViewToShow
+    /// Prepares Toasty by turning on the toaster.
     /// - Parameters:
-    ///   - fullView: Sets the view to show when in full screen.
+    ///   - expandedView: Sets the view to show when in expanded view.
     ///   - title: Sets the title to show when in compact mode.
     ///   - titleFont: Sets the Font to use for the title inside the compact mode.
     ///   - subtitle: Sets a subtitle with the string as text.
@@ -126,13 +126,13 @@ open class HoveringPopUp: UIView {
     ///   - titleColor: Sets the color of the title in compact mode.
     ///   - subtitleColor: Sets the color of the subtitle.
     ///   - iconColor: Sets the color of the icon.
-    ///   - shadowColor: Sets the shadow color of the pop up.
-    ///   - borderWidth: Sets the border width of the pop up view.
-    ///   - borderColor: Sets the border color of the pop up view.
-    ///   - shadowOffset: Sets the shadow offset of the toast.
-    ///   - shadowOpacity: Sets the shadow opacity of the toast.
-    ///   - shadowRadius: Sets the shadow radius of the toast.
-    open func preparePopUp(title: String, titleFont: UIFont? = nil, subtitle: String? = nil, subtitleFont: UIFont? = nil, icon: UIImage? = nil, iconDirection: HoveringPopUpIconDirection? = nil, fullView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, subtitleColor: UIColor? = nil, iconColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
+    ///   - shadowColor: Sets the shadow color of the toast view.
+    ///   - borderWidth: Sets the border width of the toast view.
+    ///   - borderColor: Sets the border color of the toast view.
+    ///   - shadowOffset: Sets the shadow offset of the toast view.
+    ///   - shadowOpacity: Sets the shadow opacity of the toast view.
+    ///   - shadowRadius: Sets the shadow radius of the toast view.
+    open func prepareToast(title: String, titleFont: UIFont? = nil, subtitle: String? = nil, subtitleFont: UIFont? = nil, icon: UIImage? = nil, iconDirection: ToastyIconPosition? = nil, expandedView: UIView? = nil, backgroundColor: UIColor? = nil, titleColor: UIColor? = nil, subtitleColor: UIColor? = nil, iconColor: UIColor? = nil, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float? = nil, shadowRadius: CGFloat? = nil ,borderWidth: CGFloat? = nil, borderColor: UIColor? = nil) {
         self.removeFromSuperview()
         self.findMainWindow()
         guard let window = self.mainWindow else {
@@ -140,35 +140,35 @@ open class HoveringPopUp: UIView {
             return
         }
         self.createView(with: window)
-        self.popUpView.view?.removeFromSuperview()
-        self.popUpView.view = nil
-        if let view = fullView {
-            self.popUpView.view = view
+        self.toastView.view?.removeFromSuperview()
+        self.toastView.view = nil
+        if let view = expandedView {
+            self.toastView.view = view
         }
         //Customize
           // - title
-        self.popUpView.title           = title
-        self.popUpView.titleFont       = titleFont       ?? .monospacedDigitSystemFont(ofSize: 13.25, weight: .medium)
-        self.popUpView.backgroundColor = backgroundColor ?? Color.background
-        self.popUpView.titleColor      = titleColor      ?? Color.title
+        self.toastView.title           = title
+        self.toastView.titleFont       = titleFont       ?? .monospacedDigitSystemFont(ofSize: 13.25, weight: .medium)
+        self.toastView.backgroundColor = backgroundColor ?? Color.background
+        self.toastView.titleColor      = titleColor      ?? Color.title
           // - subtitle
-        self.popUpView.subtitle      = subtitle
-        self.popUpView.subtitleFont  = subtitleFont  ?? .monospacedDigitSystemFont(ofSize: 13, weight: .medium)
-        self.popUpView.subTitleColor = subtitleColor ?? Color.subtitle
+        self.toastView.subtitle      = subtitle
+        self.toastView.subtitleFont  = subtitleFont  ?? .monospacedDigitSystemFont(ofSize: 13, weight: .medium)
+        self.toastView.subTitleColor = subtitleColor ?? Color.subtitle
           // - icon
-        self.popUpView.iconDirection = iconDirection ?? .left
-        self.popUpView.icon          = icon
-        self.popUpView.iconColor     = iconColor     ?? Color.title
+        self.toastView.iconDirection = iconDirection ?? .left
+        self.toastView.icon          = icon
+        self.toastView.iconColor     = iconColor     ?? Color.title
         
         //Shadow
-        self.popUpView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor
-        self.popUpView.layer.shadowOffset  = shadowOffset  ?? .init(width: 0, height: 6)
-        self.popUpView.layer.shadowOpacity = shadowOpacity ?? 0.25
-        self.popUpView.layer.shadowRadius  = shadowRadius  ?? 20
+        self.toastView.layer.shadowColor   = (shadowColor  ?? UIColor.darkGray).cgColor
+        self.toastView.layer.shadowOffset  = shadowOffset  ?? .init(width: 0, height: 6)
+        self.toastView.layer.shadowOpacity = shadowOpacity ?? 0.25
+        self.toastView.layer.shadowRadius  = shadowRadius  ?? 20
         
         //Border
-        self.popUpView.layer.borderWidth = borderWidth ?? 0.0
-        self.popUpView.layer.borderColor = borderColor?.cgColor
+        self.toastView.layer.borderWidth = borderWidth ?? 0.0
+        self.toastView.layer.borderColor = borderColor?.cgColor
     }
     
     //MARK: - Full size frame
@@ -182,58 +182,58 @@ open class HoveringPopUp: UIView {
         self.fullSizeHeight = height
     }
     
-    //MARK: - Pop Up
+    //MARK: - Show / Hide / Dismiss
     
     /// Shows toast notification.
-    /// - Parameter direction: Sets the direction to display to pop up from.
-    /// - Parameter changeSubtitle: Changes the subtitle to a new string.
-    /// - Parameter changeIcon: Changes the icon to a new image.
+    /// - Parameter direction: Sets the direction to display to toast from.
+    /// - Parameter changeSubtitle: Changes the subtitle to a new string with a cross fade transition.
+    /// - Parameter changeIcon: Changes the icon to a new image with a cross fade transition.
     /// - Parameter changeIconColor: Changes the icon color if it exists with a cross fade transition.
-    /// - Parameter width: Sets the width.
-    /// - Parameter height: Sets the height.
+    /// - Parameter width: Sets the width of the toast.
+    /// - Parameter height: Sets the height of the toast.
     /// - Parameter animationDuration: Sets the animation duration.
     /// - Parameter offset: Sets an offset from the top or bottom according to the direction.
     /// - Parameter cornerRadius: Sets the corner radius of the toast.
     /// - Parameter expandable: Adds a tap gesture to expand the toast and show the view that was inserted at prep time.
     /// - Parameter autoDismiss: Allows toast to hide/dismiss automatically after a certain time.
     /// - Parameter activeDuration: Sets the time it takes for the toast to hide/dismiss if auto dismiss is true.
-    open func show(from direction: HoveringPopUpDirection, changeSubtitle: String? = nil, changeIcon: UIImage? = nil, changeIconColor: UIColor? = nil, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, cornerRadius: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
-        UIView.transition(with: self.popUpView, duration: 0.25, options: .transitionCrossDissolve) {
+    open func show(from direction: ToastyDirection, changeSubtitle: String? = nil, changeIcon: UIImage? = nil, changeIconColor: UIColor? = nil, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, cornerRadius: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
+        UIView.transition(with: self.toastView, duration: 0.25, options: .transitionCrossDissolve) {
             if let text = changeSubtitle {
-                self.popUpView.subtitle = text
+                self.toastView.subtitle = text
             }
             if let icon = changeIcon {
-                self.popUpView.icon = icon
+                self.toastView.icon = icon
             }
             if let color = changeIconColor {
-                self.popUpView.iconColor = color
+                self.toastView.iconColor = color
             }
         }
         //since `directionTransform` is always set after showing, it is used to determine if it's being shown already thereby eliminating the need to show again.
         if self.directionTransform == nil {
             self.isVisible = true
-            self.addSubview(self.popUpView)
+            self.addSubview(self.toastView)
             self.direction = direction
-            self.configPopUpFrame(width: width, height: height, offset: offset ?? -5)
+            self.configToastFrame(width: width, height: height, offset: offset ?? -5)
             UIView.animate(withDuration: animationDuration ?? 0.45, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
-                self.popUpView.transform = .identity
-                self.popUpView.layer.cornerRadius = cornerRadius ?? 25.0
+                self.toastView.transform = .identity
+                self.toastView.layer.cornerRadius = cornerRadius ?? 25.0
             }
             expandability: if expandable ?? true {
-                if self.popUpView.view == nil {
+                if self.toastView.view == nil {
                     print(Warning.noFullViewEntered)
-                    self.popUpView.removeGestureRecognizer(self.tapGesture)
+                    self.toastView.removeGestureRecognizer(self.tapGesture)
                     break expandability
                 }
-                self.popUpView.addGestureRecognizer(self.tapGesture)
+                self.toastView.addGestureRecognizer(self.tapGesture)
             } else {
-                self.popUpView.removeGestureRecognizer(self.tapGesture)
+                self.toastView.removeGestureRecognizer(self.tapGesture)
             }
             if autoDismiss ?? false {
                 Timer.scheduledTimer(withTimeInterval: activeDuration ?? 2, repeats: false) { (_) in
                     self.hide()
                 }
-            } else if self.popUpView.view == nil && !(autoDismiss ?? false) { print(Warning.autoViewOffAndNoFullView) }
+            } else if self.toastView.view == nil && !(autoDismiss ?? false) { print(Warning.autoViewOffAndNoFullView) }
         }
     }
     
@@ -242,17 +242,17 @@ open class HoveringPopUp: UIView {
     open func hide(animationDuration: TimeInterval? = nil) {
         UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
             if let transform = self.directionTransform {
-                if self.popUpView.type == .fullSize {
+                if self.toastView.type == .expanded {
                     self.compactMode()
                 }
-                self.popUpView.transform = transform
+                self.toastView.transform = transform
             } else {
                 print("Toast is not yet shown.")
             }
         } completion: { (_) in
             self.isVisible = false
             self.directionTransform = nil
-            self.popUpView.removeFromSuperview()
+            self.toastView.removeFromSuperview()
         }
     }
     
@@ -261,17 +261,17 @@ open class HoveringPopUp: UIView {
     open func dismiss(animationDuration: TimeInterval? = nil) {
         UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
             if let transform = self.directionTransform {
-                if self.popUpView.type == .fullSize {
+                if self.toastView.type == .expanded {
                     self.compactMode()
                 }
-                self.popUpView.transform = transform
+                self.toastView.transform = transform
             } else {
                 print("Toast is not yet shown.")
             }
         } completion: { (_) in
             self.isVisible = false
             self.directionTransform = nil
-            self.popUpView.removeFromSuperview()
+            self.toastView.removeFromSuperview()
         }
     }
     
@@ -305,9 +305,9 @@ open class HoveringPopUp: UIView {
         NSLayoutConstraint(item: self.dismissButton!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         switch direction {
         case .top:
-            NSLayoutConstraint(item: self.dismissButton!, attribute: .bottom, relatedBy: .equal, toItem: self.popUpView, attribute: .top, multiplier: 1, constant: -5).isActive = true
+            NSLayoutConstraint(item: self.dismissButton!, attribute: .bottom, relatedBy: .equal, toItem: self.toastView, attribute: .top, multiplier: 1, constant: -5).isActive = true
         case .bottom:
-            NSLayoutConstraint(item: self.dismissButton!, attribute: .top, relatedBy: .equal, toItem: self.popUpView, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
+            NSLayoutConstraint(item: self.dismissButton!, attribute: .top, relatedBy: .equal, toItem: self.toastView, attribute: .bottom, multiplier: 1, constant: 5).isActive = true
         }
         NSLayoutConstraint(item: self.dismissButton!, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0, constant: 30).isActive = true
         NSLayoutConstraint(item: self.dismissButton!, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30).isActive = true
@@ -326,11 +326,11 @@ open class HoveringPopUp: UIView {
     
     fileprivate func fullSizeMode() {
         self.dismissButtonConfig()
-        NSLayoutConstraint.deactivate(self.popUpCompactWidthAndHeightConstraints)
-        NSLayoutConstraint.activate(self.popUpFullSizeWidthAndHeightConstraints)
-        self.popUpView.removeGestureRecognizer(self.tapGesture)
-        self.popUpView.clipsToBounds = true
-        self.popUpView.type = .fullSize
+        NSLayoutConstraint.deactivate(self.toastCompactWidthAndHeightConstraints)
+        NSLayoutConstraint.activate(self.toastExpandedWidthAndHeightConstraints)
+        self.toastView.removeGestureRecognizer(self.tapGesture)
+        self.toastView.clipsToBounds = true
+        self.toastView.type = .expanded
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         blurView.alpha = 0
         blurView.addGestureRecognizer(self.tapGesture)
@@ -340,9 +340,9 @@ open class HoveringPopUp: UIView {
             blurView.alpha = 1
             self.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
             if self.direction == .top {
-                self.popUpView.transform = .init(translationX: 0, y: 40)
+                self.toastView.transform = .init(translationX: 0, y: 40)
             } else {
-                self.popUpView.transform = .init(translationX: 0, y: -40)
+                self.toastView.transform = .init(translationX: 0, y: -40)
             }
             self.layoutSubviews()
         }
@@ -352,21 +352,21 @@ open class HoveringPopUp: UIView {
     }
     
     fileprivate func compactMode() {
-        NSLayoutConstraint.deactivate(self.popUpFullSizeWidthAndHeightConstraints)
-        NSLayoutConstraint.activate(self.popUpCompactWidthAndHeightConstraints)
-        self.popUpView.addGestureRecognizer(self.tapGesture)
+        NSLayoutConstraint.deactivate(self.toastExpandedWidthAndHeightConstraints)
+        NSLayoutConstraint.activate(self.toastCompactWidthAndHeightConstraints)
+        self.toastView.addGestureRecognizer(self.tapGesture)
         let blurView = self.subviews[0]
         blurView.removeGestureRecognizer(self.tapGesture)
-        self.popUpView.clipsToBounds = false
-        self.popUpView.view?.alpha = 0
+        self.toastView.clipsToBounds = false
+        self.toastView.view?.alpha = 0
         self.dismissButtonRemove()
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
             blurView.alpha = 0
-            self.popUpView.transform = .identity
+            self.toastView.transform = .identity
             self.backgroundColor = .clear
             self.layoutSubviews()
         } completion: { (_) in
-            self.popUpView.type = .compact
+            self.toastView.type = .compact
             blurView.removeFromSuperview()
         }
     }
@@ -375,20 +375,20 @@ open class HoveringPopUp: UIView {
     
     @objc fileprivate func changeMode() {
         if let _ = self.directionTransform {
-            switch self.popUpView.type {
+            switch self.toastView.type {
             case .compact:
                 DispatchQueue.main.async {
                     UIView.animate(withDuration: 0.09) {
-                        self.popUpView.transform = .init(scaleX: 0.96, y: 0.96)
+                        self.toastView.transform = .init(scaleX: 0.96, y: 0.96)
                     } completion: { (_) in
                         UIView.animate(withDuration: 0.09) {
-                            self.popUpView.transform = .identity
+                            self.toastView.transform = .identity
                         } completion: { (_) in
                             self.fullSizeMode()
                         }
                     }
                 }
-            case .fullSize:
+            case .expanded:
                 if let button = self.dismissButton {
                     DispatchQueue.main.async {
                         UIView.animate(withDuration: 0.09) {
@@ -412,7 +412,7 @@ open class HoveringPopUp: UIView {
 
 //MARK: - Extensions and Delegations
 
-private extension HoveringPopUp {
+private extension Toasty {
     
     //find window
     func findMainWindow() {

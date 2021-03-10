@@ -1,6 +1,6 @@
 //
-//  PopUpView.swift
-//  HoveringPopUp
+//  ToastView.swift
+//  Toasty
 //
 //  Created by Arman Zoghi on 3/2/21.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PopUpView: UIView {
+class ToastView: UIView {
     
     //MARK: ----- Constants -----
     
@@ -21,8 +21,8 @@ class PopUpView: UIView {
     fileprivate var subtitleLabel : UILabel?
     fileprivate var iconImageView : UIImageView?
     
-    /// Sets the current type of the popUpView
-    internal var type : HoveringPopUpState = .compact {
+    /// Sets the current type of the toastView
+    internal var type : ToastyState = .compact {
         didSet {
             self.changeMode()
         }
@@ -92,7 +92,7 @@ class PopUpView: UIView {
     }
     
     /// Decides where to put the icon.
-    internal var iconDirection: HoveringPopUpIconDirection? = .left
+    internal var iconDirection: ToastyIconPosition? = .left
     
     /// Configures the icon image view and sets the icon as it's image.
     internal var icon: UIImage? {
@@ -235,7 +235,7 @@ class PopUpView: UIView {
                 self.subtitleLabel?.alpha = 1
                 self.iconImageView?.alpha = 1
             }
-        case .fullSize:
+        case .expanded:
             self.titleLabel.alpha     = 0
             self.subtitleLabel?.alpha = 0
             self.iconImageView?.alpha = 0

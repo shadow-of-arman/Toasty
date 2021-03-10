@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "45C23FC125EE2B6500C8C089"
-               BuildableName = "HoveringPopUp.framework"
-               BlueprintName = "HoveringPopUp"
-               ReferencedContainer = "container:HoveringPopUp.xcodeproj">
+               BuildableName = "Toasty.framework"
+               BlueprintName = "Toasty"
+               ReferencedContainer = "container:Toasty.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "45C23FC125EE2B6500C8C089"
-            BuildableName = "HoveringPopUp.framework"
-            BlueprintName = "HoveringPopUp"
-            ReferencedContainer = "container:HoveringPopUp.xcodeproj">
+            BuildableName = "Toasty.framework"
+            BlueprintName = "Toasty"
+            ReferencedContainer = "container:Toasty.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

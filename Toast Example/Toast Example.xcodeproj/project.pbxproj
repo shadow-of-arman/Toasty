@@ -11,18 +11,18 @@
 		451CFE6525F0CAE500F904CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451CFE6425F0CAE500F904CF /* ViewController.swift */; };
 		451CFE6A25F0CAE900F904CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 451CFE6925F0CAE900F904CF /* Assets.xcassets */; };
 		451CFE6D25F0CAE900F904CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451CFE6B25F0CAE900F904CF /* LaunchScreen.storyboard */; };
-		45CB3EBF25F0E6430046EC46 /* HoveringPopUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB3EBE25F0E6430046EC46 /* HoveringPopUp.framework */; };
-		45CB3EC025F0E6430046EC46 /* HoveringPopUp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB3EBE25F0E6430046EC46 /* HoveringPopUp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452C09F425F93CCC00252244 /* Toasty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452C09F325F93CCC00252244 /* Toasty.framework */; };
+		452C09F525F93CCC00252244 /* Toasty.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 452C09F325F93CCC00252244 /* Toasty.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		45CB3EC125F0E6430046EC46 /* Embed Frameworks */ = {
+		452C09F625F93CCC00252244 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				45CB3EC025F0E6430046EC46 /* HoveringPopUp.framework in Embed Frameworks */,
+				452C09F525F93CCC00252244 /* Toasty.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,6 +36,7 @@
 		451CFE6925F0CAE900F904CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		451CFE6C25F0CAE900F904CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		451CFE6E25F0CAE900F904CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		452C09F325F93CCC00252244 /* Toasty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Toasty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CB3EBE25F0E6430046EC46 /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -44,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45CB3EBF25F0E6430046EC46 /* HoveringPopUp.framework in Frameworks */,
+				452C09F425F93CCC00252244 /* Toasty.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +84,7 @@
 		45CB3EBD25F0E6430046EC46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				452C09F325F93CCC00252244 /* Toasty.framework */,
 				45CB3EBE25F0E6430046EC46 /* HoveringPopUp.framework */,
 			);
 			name = Frameworks;
@@ -98,7 +100,7 @@
 				451CFE5925F0CAE500F904CF /* Sources */,
 				451CFE5A25F0CAE500F904CF /* Frameworks */,
 				451CFE5B25F0CAE500F904CF /* Resources */,
-				45CB3EC125F0E6430046EC46 /* Embed Frameworks */,
+				452C09F625F93CCC00252244 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
