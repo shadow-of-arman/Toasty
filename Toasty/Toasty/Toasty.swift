@@ -198,15 +198,17 @@ open class Toasty: UIView {
     /// - Parameter autoDismiss: Allows toast to hide/dismiss automatically after a certain time.
     /// - Parameter activeDuration: Sets the time it takes for the toast to hide/dismiss if auto dismiss is true.
     open func show(from direction: ToastyDirection, changeSubtitle: String? = nil, changeIcon: UIImage? = nil, changeIconColor: UIColor? = nil, width: CGFloat? = nil, height: CGFloat? = nil, animationDuration: TimeInterval? = nil, offset: CGFloat? = nil, cornerRadius: CGFloat? = nil, expandable: Bool? = nil, autoDismiss: Bool? = nil, activeDuration: TimeInterval? = nil) {
-        UIView.transition(with: self.toastView, duration: 0.25, options: .transitionCrossDissolve) {
-            if let text = changeSubtitle {
-                self.toastView.subtitle = text
-            }
-            if let icon = changeIcon {
-                self.toastView.icon = icon
-            }
-            if let color = changeIconColor {
-                self.toastView.iconColor = color
+        DispatchQueue.main.async {
+            UIView.transition(with: self.toastView, duration: 0.25, options: .transitionCrossDissolve) {
+                if let text = changeSubtitle {
+                    self.toastView.subtitle = text
+                }
+                if let icon = changeIcon {
+                    self.toastView.icon = icon
+                }
+                if let color = changeIconColor {
+                    self.toastView.iconColor = color
+                }
             }
         }
         //since `directionTransform` is always set after showing, it is used to determine if it's being shown already thereby eliminating the need to show again.
@@ -215,63 +217,69 @@ open class Toasty: UIView {
             self.addSubview(self.toastView)
             self.direction = direction
             self.configToastFrame(width: width, height: height, offset: offset ?? -5)
-            UIView.animate(withDuration: animationDuration ?? 0.45, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
-                self.toastView.transform = .identity
-                self.toastView.layer.cornerRadius = cornerRadius ?? 25.0
-            }
-            expandability: if expandable ?? true {
-                if self.toastView.view == nil {
-                    print(Warning.noFullViewEntered)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: animationDuration ?? 0.45, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseOut]) {
+                    self.toastView.transform = .identity
+                    self.toastView.layer.cornerRadius = cornerRadius ?? 25.0
+                }
+                expandability: if expandable ?? true {
+                    if self.toastView.view == nil {
+                        print(Warning.noFullViewEntered)
+                        self.toastView.removeGestureRecognizer(self.tapGesture)
+                        break expandability
+                    }
+                    self.toastView.addGestureRecognizer(self.tapGesture)
+                } else {
                     self.toastView.removeGestureRecognizer(self.tapGesture)
-                    break expandability
                 }
-                self.toastView.addGestureRecognizer(self.tapGesture)
-            } else {
-                self.toastView.removeGestureRecognizer(self.tapGesture)
+                if autoDismiss ?? false {
+                    Timer.scheduledTimer(withTimeInterval: activeDuration ?? 2, repeats: false) { (_) in
+                        self.hide()
+                    }
+                } else if self.toastView.view == nil && !(autoDismiss ?? false) { print(Warning.autoViewOffAndNoFullView) }                
             }
-            if autoDismiss ?? false {
-                Timer.scheduledTimer(withTimeInterval: activeDuration ?? 2, repeats: false) { (_) in
-                    self.hide()
-                }
-            } else if self.toastView.view == nil && !(autoDismiss ?? false) { print(Warning.autoViewOffAndNoFullView) }
         }
     }
     
     /// Hides / dismisses toast notification.
     /// - Parameter animationDuration: Sets the animation duration.
     open func hide(animationDuration: TimeInterval? = nil) {
-        UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
-            if let transform = self.directionTransform {
-                if self.toastView.type == .expanded {
-                    self.compactMode()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
+                if let transform = self.directionTransform {
+                    if self.toastView.type == .expanded {
+                        self.compactMode()
+                    }
+                    self.toastView.transform = transform
+                } else {
+                    print("Toast is not yet shown.")
                 }
-                self.toastView.transform = transform
-            } else {
-                print("Toast is not yet shown.")
+            } completion: { (_) in
+                self.isVisible = false
+                self.directionTransform = nil
+                self.toastView.removeFromSuperview()
             }
-        } completion: { (_) in
-            self.isVisible = false
-            self.directionTransform = nil
-            self.toastView.removeFromSuperview()
         }
     }
     
     /// Hides / dismisses toast notification.
     /// - Parameter animationDuration: Sets the animation duration.
     open func dismiss(animationDuration: TimeInterval? = nil) {
-        UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
-            if let transform = self.directionTransform {
-                if self.toastView.type == .expanded {
-                    self.compactMode()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: animationDuration ?? 0.2, delay: 0, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
+                if let transform = self.directionTransform {
+                    if self.toastView.type == .expanded {
+                        self.compactMode()
+                    }
+                    self.toastView.transform = transform
+                } else {
+                    print("Toast is not yet shown.")
                 }
-                self.toastView.transform = transform
-            } else {
-                print("Toast is not yet shown.")
+            } completion: { (_) in
+                self.isVisible = false
+                self.directionTransform = nil
+                self.toastView.removeFromSuperview()
             }
-        } completion: { (_) in
-            self.isVisible = false
-            self.directionTransform = nil
-            self.toastView.removeFromSuperview()
         }
     }
     
@@ -325,49 +333,53 @@ open class Toasty: UIView {
     //MARK: - Modes
     
     fileprivate func fullSizeMode() {
-        self.dismissButtonConfig()
-        NSLayoutConstraint.deactivate(self.toastCompactWidthAndHeightConstraints)
-        NSLayoutConstraint.activate(self.toastExpandedWidthAndHeightConstraints)
-        self.toastView.removeGestureRecognizer(self.tapGesture)
-        self.toastView.clipsToBounds = true
-        self.toastView.type = .expanded
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
-        blurView.alpha = 0
-        blurView.addGestureRecognizer(self.tapGesture)
-        blurView.frame = self.bounds
-        self.insertSubview(blurView, at: 0)
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 2.5, options: [.preferredFramesPerSecond60, .curveEaseInOut]) {
-            blurView.alpha = 1
-            self.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
-            if self.direction == .top {
-                self.toastView.transform = .init(translationX: 0, y: 40)
-            } else {
-                self.toastView.transform = .init(translationX: 0, y: -40)
+        DispatchQueue.main.async {
+            self.dismissButtonConfig()
+            NSLayoutConstraint.deactivate(self.toastCompactWidthAndHeightConstraints)
+            NSLayoutConstraint.activate(self.toastExpandedWidthAndHeightConstraints)
+            self.toastView.removeGestureRecognizer(self.tapGesture)
+            self.toastView.clipsToBounds = true
+            self.toastView.type = .expanded
+            let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+            blurView.alpha = 0
+            blurView.addGestureRecognizer(self.tapGesture)
+            blurView.frame = self.bounds
+            self.insertSubview(blurView, at: 0)
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 2.5, options: [.preferredFramesPerSecond60, .curveEaseInOut]) {
+                blurView.alpha = 1
+                self.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
+                if self.direction == .top {
+                    self.toastView.transform = .init(translationX: 0, y: 40)
+                } else {
+                    self.toastView.transform = .init(translationX: 0, y: -40)
+                }
+                self.layoutSubviews()
             }
-            self.layoutSubviews()
+            UIView.transition(with: self.dismissButton!, duration: 0.5, options: .transitionFlipFromTop, animations: {
+                self.dismissButton?.alpha = 1
+            }, completion: nil)
         }
-        UIView.transition(with: self.dismissButton!, duration: 0.5, options: .transitionFlipFromTop, animations: {
-            self.dismissButton?.alpha = 1
-        }, completion: nil)
     }
     
     fileprivate func compactMode() {
-        NSLayoutConstraint.deactivate(self.toastExpandedWidthAndHeightConstraints)
-        NSLayoutConstraint.activate(self.toastCompactWidthAndHeightConstraints)
-        self.toastView.addGestureRecognizer(self.tapGesture)
-        let blurView = self.subviews[0]
-        blurView.removeGestureRecognizer(self.tapGesture)
-        self.toastView.clipsToBounds = false
-        self.toastView.view?.alpha = 0
-        self.dismissButtonRemove()
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
-            blurView.alpha = 0
-            self.toastView.transform = .identity
-            self.backgroundColor = .clear
-            self.layoutSubviews()
-        } completion: { (_) in
-            self.toastView.type = .compact
-            blurView.removeFromSuperview()
+        DispatchQueue.main.async {
+            NSLayoutConstraint.deactivate(self.toastExpandedWidthAndHeightConstraints)
+            NSLayoutConstraint.activate(self.toastCompactWidthAndHeightConstraints)
+            self.toastView.addGestureRecognizer(self.tapGesture)
+            let blurView = self.subviews[0]
+            blurView.removeGestureRecognizer(self.tapGesture)
+            self.toastView.clipsToBounds = false
+            self.toastView.view?.alpha = 0
+            self.dismissButtonRemove()
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: [.preferredFramesPerSecond60, .curveEaseIn]) {
+                blurView.alpha = 0
+                self.toastView.transform = .identity
+                self.backgroundColor = .clear
+                self.layoutSubviews()
+            } completion: { (_) in
+                self.toastView.type = .compact
+                blurView.removeFromSuperview()
+            }
         }
     }
     
