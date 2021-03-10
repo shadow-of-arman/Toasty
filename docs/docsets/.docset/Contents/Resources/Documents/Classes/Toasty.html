@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>HoveringPopUp Class Reference</title>
+    <title>Toasty Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/HoveringPopUp" class="dashAnchor"></a>
-    <a title="HoveringPopUp Class Reference"></a>
+    <a name="//apple_ref/swift/Class/Toasty" class="dashAnchor"></a>
+    <a title="Toasty Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (100% documented)</p>
@@ -29,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        HoveringPopUp Class Reference
+        Toasty Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -39,7 +39,7 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/HoveringPopUp.html">HoveringPopUp</a>
+                <a href="../Classes/Toasty.html">Toasty</a>
               </li>
             </ul>
           </li>
@@ -47,13 +47,13 @@
             <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/HoveringPopUpDirection.html">HoveringPopUpDirection</a>
+                <a href="../Enums/ToastyDirection.html">ToastyDirection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/HoveringPopUpIconDirection.html">HoveringPopUpIconDirection</a>
+                <a href="../Enums/ToastyIconPosition.html">ToastyIconPosition</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/HoveringPopUpState.html">HoveringPopUpState</a>
+                <a href="../Enums/ToastyState.html">ToastyState</a>
               </li>
             </ul>
           </li>
@@ -62,11 +62,11 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>HoveringPopUp</h1>
+            <h1>Toasty</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">HoveringPopUp</span> <span class="p">:</span> <span class="kt">UIView</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Toasty</span> <span class="p">:</span> <span class="kt">UIView</span></code></pre>
 
                 </div>
               </div>
@@ -88,9 +88,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13HoveringPopUpAAC16compactTitleTextSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/compactTitleText" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13HoveringPopUpAAC16compactTitleTextSSSgvp">compactTitleText</a>
+                    <a name="/s:6ToastyAAC9isVisibleSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isVisible" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6ToastyAAC9isVisibleSbvp">isVisible</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -98,14 +98,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Sets the text to show in the title when in compact mode.</p>
+                        <p>Used to identify when the toast is on screen.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">compactTitleText</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">isVisible</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -128,9 +128,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@HoveringPopUp@objc(cs)HoveringPopUp(im)pointInside:withEvent:"></a>
+                    <a name="/c:@M@Toasty@objc(cs)Toasty(im)pointInside:withEvent:"></a>
                     <a name="//apple_ref/swift/Method/point(inside:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@HoveringPopUp@objc(cs)HoveringPopUp(im)pointInside:withEvent:">point(inside:<wbr>with:<wbr>)</a>
+                    <a class="token" href="#/c:@M@Toasty@objc(cs)Toasty(im)pointInside:withEvent:">point(inside:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -203,9 +203,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13HoveringPopUpAAC07preparebC05title0E4Font8subtitle0gF04icon0H9Direction8fullView15backgroundColor0eM00gM00hM006shadowM00N6Offset0N7Opacity0N6Radius11borderWidth0rM0ySS_So6UIFontCSgSSSgAWSo7UIImageCSgAA0abc4IconI0OSgSo6UIViewCSgSo7UIColorCSgA8_A8_A8_A8_So6CGSizeVSgSfSg12CoreGraphics7CGFloatVSgA16_A8_tF"></a>
-                    <a name="//apple_ref/swift/Method/preparePopUp(title:titleFont:subtitle:subtitleFont:icon:iconDirection:fullView:backgroundColor:titleColor:subtitleColor:iconColor:shadowColor:shadowOffset:shadowOpacity:shadowRadius:borderWidth:borderColor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13HoveringPopUpAAC07preparebC05title0E4Font8subtitle0gF04icon0H9Direction8fullView15backgroundColor0eM00gM00hM006shadowM00N6Offset0N7Opacity0N6Radius11borderWidth0rM0ySS_So6UIFontCSgSSSgAWSo7UIImageCSgAA0abc4IconI0OSgSo6UIViewCSgSo7UIColorCSgA8_A8_A8_A8_So6CGSizeVSgSfSg12CoreGraphics7CGFloatVSgA16_A8_tF">preparePopUp(title:<wbr>titleFont:<wbr>subtitle:<wbr>subtitleFont:<wbr>icon:<wbr>iconDirection:<wbr>fullView:<wbr>backgroundColor:<wbr>titleColor:<wbr>subtitleColor:<wbr>iconColor:<wbr>shadowColor:<wbr>shadowOffset:<wbr>shadowOpacity:<wbr>shadowRadius:<wbr>borderWidth:<wbr>borderColor:<wbr>)</a>
+                    <a name="/s:6ToastyAAC12prepareToast5title0D4Font8subtitle0fE04icon0G9Direction12expandedView15backgroundColor0dL00fL00gL006shadowL00M6Offset0M7Opacity0M6Radius11borderWidth0qL0ySS_So6UIFontCSgSSSgAWSo7UIImageCSgAA0A12IconPositionOSgSo6UIViewCSgSo7UIColorCSgA8_A8_A8_A8_So6CGSizeVSgSfSg12CoreGraphics7CGFloatVSgA16_A8_tF"></a>
+                    <a name="//apple_ref/swift/Method/prepareToast(title:titleFont:subtitle:subtitleFont:icon:iconDirection:expandedView:backgroundColor:titleColor:subtitleColor:iconColor:shadowColor:shadowOffset:shadowOpacity:shadowRadius:borderWidth:borderColor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6ToastyAAC12prepareToast5title0D4Font8subtitle0fE04icon0G9Direction12expandedView15backgroundColor0dL00fL00gL006shadowL00M6Offset0M7Opacity0M6Radius11borderWidth0qL0ySS_So6UIFontCSgSSSgAWSo7UIImageCSgAA0A12IconPositionOSgSo6UIViewCSgSo7UIColorCSgA8_A8_A8_A8_So6CGSizeVSgSfSg12CoreGraphics7CGFloatVSgA16_A8_tF">prepareToast(title:<wbr>titleFont:<wbr>subtitle:<wbr>subtitleFont:<wbr>icon:<wbr>iconDirection:<wbr>expandedView:<wbr>backgroundColor:<wbr>titleColor:<wbr>subtitleColor:<wbr>iconColor:<wbr>shadowColor:<wbr>shadowOffset:<wbr>shadowOpacity:<wbr>shadowRadius:<wbr>borderWidth:<wbr>borderColor:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -213,14 +213,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Prepares the popUpViewToShow</p>
+                        <p>Prepares Toasty by turning on the toaster.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">preparePopUp</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">titleFont</span><span class="p">:</span> <span class="kt">UIFont</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">subtitleFont</span><span class="p">:</span> <span class="kt">UIFont</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">icon</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">iconDirection</span><span class="p">:</span> <span class="kt"><a href="../Enums/HoveringPopUpIconDirection.html">HoveringPopUpIconDirection</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">fullView</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">titleColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">subtitleColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">iconColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowOffset</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowOpacity</span><span class="p">:</span> <span class="kt">Float</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowRadius</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">borderWidth</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">prepareToast</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">titleFont</span><span class="p">:</span> <span class="kt">UIFont</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">subtitleFont</span><span class="p">:</span> <span class="kt">UIFont</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">icon</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">iconDirection</span><span class="p">:</span> <span class="kt"><a href="../Enums/ToastyIconPosition.html">ToastyIconPosition</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">expandedView</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">titleColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">subtitleColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">iconColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowOffset</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowOpacity</span><span class="p">:</span> <span class="kt">Float</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">shadowRadius</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">borderWidth</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">borderColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -231,12 +231,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>fullView</em>
+                                <em>expandedView</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the view to show when in full screen.</p>
+                                  <p>Sets the view to show when in expanded view.</p>
                                 </div>
                               </td>
                             </tr>
@@ -368,7 +368,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the shadow color of the pop up.</p>
+                                  <p>Sets the shadow color of the toast view.</p>
                                 </div>
                               </td>
                             </tr>
@@ -380,7 +380,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the border width of the pop up view.</p>
+                                  <p>Sets the border width of the toast view.</p>
                                 </div>
                               </td>
                             </tr>
@@ -392,7 +392,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the border color of the pop up view.</p>
+                                  <p>Sets the border color of the toast view.</p>
                                 </div>
                               </td>
                             </tr>
@@ -404,7 +404,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the shadow offset of the toast.</p>
+                                  <p>Sets the shadow offset of the toast view.</p>
                                 </div>
                               </td>
                             </tr>
@@ -416,7 +416,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the shadow opacity of the toast.</p>
+                                  <p>Sets the shadow opacity of the toast view.</p>
                                 </div>
                               </td>
                             </tr>
@@ -428,7 +428,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the shadow radius of the toast.</p>
+                                  <p>Sets the shadow radius of the toast view.</p>
                                 </div>
                               </td>
                             </tr>
@@ -454,9 +454,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13HoveringPopUpAAC24fullSizeFrameConstraints5width6heighty12CoreGraphics7CGFloatVSg_AItF"></a>
+                    <a name="/s:6ToastyAAC24fullSizeFrameConstraints5width6heighty12CoreGraphics7CGFloatVSg_AItF"></a>
                     <a name="//apple_ref/swift/Method/fullSizeFrameConstraints(width:height:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13HoveringPopUpAAC24fullSizeFrameConstraints5width6heighty12CoreGraphics7CGFloatVSg_AItF">fullSizeFrameConstraints(width:<wbr>height:<wbr>)</a>
+                    <a class="token" href="#/s:6ToastyAAC24fullSizeFrameConstraints5width6heighty12CoreGraphics7CGFloatVSg_AItF">fullSizeFrameConstraints(width:<wbr>height:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -513,11 +513,11 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Pop%20Up"></a>
-                <a name="//apple_ref/swift/Section/Pop Up" class="dashAnchor"></a>
+                <a name="/Show%20%2F%20Hide%20%2F%20Dismiss"></a>
+                <a name="//apple_ref/swift/Section/Show / Hide / Dismiss" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Pop%20Up"></a>
-                  <h3 class="section-name"><p>Pop Up</p>
+                  <a class="section-name-link" href="#/Show%20%2F%20Hide%20%2F%20Dismiss"></a>
+                  <h3 class="section-name"><p>Show / Hide / Dismiss</p>
 </h3>
                 </div>
               </div>
@@ -525,9 +525,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13HoveringPopUpAAC4show4from14changeSubtitle0F4Icon0fH5Color5width6height17animationDuration6offset12cornerRadius10expandable11autoDismiss06activeM0yAA0abC9DirectionO_SSSgSo7UIImageCSgSo7UIColorCSg12CoreGraphics7CGFloatVSgA0_SdSgA0_A0_SbSgA2_A1_tF"></a>
+                    <a name="/s:6ToastyAAC4show4from14changeSubtitle0D4Icon0dF5Color5width6height17animationDuration6offset12cornerRadius10expandable11autoDismiss06activeK0yAA0A9DirectionO_SSSgSo7UIImageCSgSo7UIColorCSg12CoreGraphics7CGFloatVSgA0_SdSgA0_A0_SbSgA2_A1_tF"></a>
                     <a name="//apple_ref/swift/Method/show(from:changeSubtitle:changeIcon:changeIconColor:width:height:animationDuration:offset:cornerRadius:expandable:autoDismiss:activeDuration:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13HoveringPopUpAAC4show4from14changeSubtitle0F4Icon0fH5Color5width6height17animationDuration6offset12cornerRadius10expandable11autoDismiss06activeM0yAA0abC9DirectionO_SSSgSo7UIImageCSgSo7UIColorCSg12CoreGraphics7CGFloatVSgA0_SdSgA0_A0_SbSgA2_A1_tF">show(from:<wbr>changeSubtitle:<wbr>changeIcon:<wbr>changeIconColor:<wbr>width:<wbr>height:<wbr>animationDuration:<wbr>offset:<wbr>cornerRadius:<wbr>expandable:<wbr>autoDismiss:<wbr>activeDuration:<wbr>)</a>
+                    <a class="token" href="#/s:6ToastyAAC4show4from14changeSubtitle0D4Icon0dF5Color5width6height17animationDuration6offset12cornerRadius10expandable11autoDismiss06activeK0yAA0A9DirectionO_SSSgSo7UIImageCSgSo7UIColorCSg12CoreGraphics7CGFloatVSgA0_SdSgA0_A0_SbSgA2_A1_tF">show(from:<wbr>changeSubtitle:<wbr>changeIcon:<wbr>changeIconColor:<wbr>width:<wbr>height:<wbr>animationDuration:<wbr>offset:<wbr>cornerRadius:<wbr>expandable:<wbr>autoDismiss:<wbr>activeDuration:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -542,7 +542,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">show</span><span class="p">(</span><span class="n">from</span> <span class="nv">direction</span><span class="p">:</span> <span class="kt"><a href="../Enums/HoveringPopUpDirection.html">HoveringPopUpDirection</a></span><span class="p">,</span> <span class="nv">changeSubtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">changeIcon</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">changeIconColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">animationDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">cornerRadius</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">expandable</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">autoDismiss</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">activeDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">show</span><span class="p">(</span><span class="n">from</span> <span class="nv">direction</span><span class="p">:</span> <span class="kt"><a href="../Enums/ToastyDirection.html">ToastyDirection</a></span><span class="p">,</span> <span class="nv">changeSubtitle</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">changeIcon</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">changeIconColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">animationDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">cornerRadius</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">expandable</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">autoDismiss</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">activeDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -558,7 +558,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the direction to display to pop up from.</p>
+                                  <p>Sets the direction to display to toast from.</p>
                                 </div>
                               </td>
                             </tr>
@@ -570,7 +570,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Changes the subtitle to a new string.</p>
+                                  <p>Changes the subtitle to a new string with a cross fade transition.</p>
                                 </div>
                               </td>
                             </tr>
@@ -582,7 +582,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Changes the icon to a new image.</p>
+                                  <p>Changes the icon to a new image with a cross fade transition.</p>
                                 </div>
                               </td>
                             </tr>
@@ -606,7 +606,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the width.</p>
+                                  <p>Sets the width of the toast.</p>
                                 </div>
                               </td>
                             </tr>
@@ -618,7 +618,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Sets the height.</p>
+                                  <p>Sets the height of the toast.</p>
                                 </div>
                               </td>
                             </tr>
@@ -703,9 +703,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13HoveringPopUpAAC4hide17animationDurationySdSg_tF"></a>
+                    <a name="/s:6ToastyAAC4hide17animationDurationySdSg_tF"></a>
                     <a name="//apple_ref/swift/Method/hide(animationDuration:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13HoveringPopUpAAC4hide17animationDurationySdSg_tF">hide(animationDuration:<wbr>)</a>
+                    <a class="token" href="#/s:6ToastyAAC4hide17animationDurationySdSg_tF">hide(animationDuration:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -713,7 +713,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Hides toast notification.</p>
+                        <p>Hides / dismisses toast notification.</p>
 
                       </div>
                       <div class="declaration">
@@ -746,12 +746,58 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6ToastyAAC7dismiss17animationDurationySdSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/dismiss(animationDuration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6ToastyAAC7dismiss17animationDurationySdSg_tF">dismiss(animationDuration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Hides / dismisses toast notification.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">dismiss</span><span class="p">(</span><span class="nv">animationDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animationDuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Sets the animation duration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-06)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-10)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
