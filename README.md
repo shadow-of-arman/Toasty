@@ -5,7 +5,7 @@
 
 ## Preview
 
-![](Gifs/iOS-Original.gif) ![](Gifs/Toasty.gif) 
+![iOS-default](Gifs/iOS-Default.gif) ![Toasty](Gifs/Toasty.gif) 
 
 ### Features
 - [x] Easy to implement.
