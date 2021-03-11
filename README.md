@@ -4,14 +4,18 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-important.svg)](https://github.com/shadow-of-arman/Toasty/blob/master/LICENSE)
 
 ## Preview
+| iOS system | Toasty |
+|----------|----------|
+| ![iOS-system](Gifs/iOS-system.gif) | ![Toasty](Gifs/Toasty.gif) |
 
-![iOS-default](Gifs/iOS-Default.gif) ![Toasty](Gifs/Toasty.gif) 
 
 ### Features
 - [x] Easy to implement.
-- [x] Highly customizable.
-- [x] Smooth animations.
+- [x] Highly customizable. 
+- [x] Dark Mode support. 🌓
+- [x] 60FPS smooth animations. 
 - [x] Interactive expanded view support.
+- [x] Top or bottom position support.
 - [x] Icon support. 
 
 ## Documentation
