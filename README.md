@@ -7,9 +7,10 @@
 | iOS system | Toasty |
 |----------|----------|
 | ![iOS-system](Gifs/iOS-system.gif) | ![Toasty](Gifs/Toasty.gif) |
+| ![iOS-system](Gifs/iOS-system-Dark.gif) | ![Toasty](Gifs/Toasty-Dark.gif) |
 
 
-### Features
+## Features
 - [x] Easy to implement.
 - [x] Highly customizable. 
 - [x] Dark Mode support. 🌓
@@ -17,6 +18,14 @@
 - [x] Interactive expanded view support.
 - [x] Top or bottom position support.
 - [x] Icon support. 
+
+| Icon support | Customization | Update transition |
+|----------|----------|----------|
+| ![Icon](Gifs/Toasty-icon.gif) | ![Customization](Gifs/Toasty-customize.png) | ![Update transition](Gifs/Toasty-transition.gif) |
+
+### Interaction example
+
+![expand](Gifs/Toasty-expanding.gif)
 
 ## Documentation
 You can find [the docs here](http://shadow-of-arman.github.io/Toasty/). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
