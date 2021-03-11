@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .lightGray
         if #available(iOS 13.0, *) {
-            self.toast.prepareToast(title: "Silent Mode", titleFont: nil, subtitle: "On", icon: UIImage(systemName: "speaker.slash.fill"), expandedView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
+            self.toast.prepareToast(title: "Silent Mode", titleFont: nil, subtitle: "On", expandedView: view, backgroundColor: nil, titleColor: nil, shadowColor: nil, borderWidth: nil, borderColor: nil)
         } else {
             // Fallback on earlier versions
         }
@@ -95,14 +95,14 @@ class ViewController: UIViewController {
         self.prepareToasty()
         if self.exampleOn == true {
             if #available(iOS 13.0, *) {
-                self.toast.show(from: .top, changeSubtitle: "Off", changeIcon: UIImage(systemName: "speaker.slash.fill"), autoDismiss: false)
+                self.toast.show(from: .top, changeSubtitle: "Off", autoDismiss: true)
             } else {
                 // Fallback on earlier versions
             }
             self.exampleOn = false
         } else {
             if #available(iOS 13.0, *) {
-                self.toast.show(from: .top, changeSubtitle: "On", changeIcon: UIImage(systemName: "speaker.fill"), autoDismiss: false)
+                self.toast.show(from: .top, changeSubtitle: "On", autoDismiss: true)
             } else {
                 // Fallback on earlier versions
             }
