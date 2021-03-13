@@ -27,6 +27,75 @@
 
 ![expand](Gifs/Toasty-expanding.gif)
 
+## Instalation
+
+### CocoaPods
+
+`Coming soon!`
+
+### Carthage
+
+`Coming soon!`
+
+### Swift Package Manager
+
+`Coming soon!`
+
+### Manual
+
+If you prefer not to use either of the aforementioned dependency managers, you can integrate sources in the `Toasty` folder into your project manually.
+
+## Usage
+
+You can get started by creating an instance of toasty and preparing it before you want to use it. Just make sure to prepare the toast when your `ViewController` has entered a view hierarchy. (anything after viewDidAppear)
+
+```Swift
+import Toasty
+
+class ViewController: UIViewController {
+
+    let toast = Toasty()
+	
+
+	override func viewDidLoad() {
+        super.viewDidLoad()
+        self.createUI()
+    }
+
+	 override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.toast.prepareToast(title: "Toasty!")
+    }
+
+}
+
+```
+
+Then all you need is to use the `show` function to show your toast!
+
+```Swift
+self.toast.show(from: .top)
+//or 
+self.toast.show(from: .bottom)
+```
+
+By default your toast will hide/dismiss automatically, but you can also do it manually.
+
+```Swift
+toast.show(from: .top, autoDismiss: false)
+//then hide it by using
+toast.hide()
+//or
+toast.dismiss()
+```
+`hide()` and `dismiss()` both do the exact same thing.
+
+### Costumization
+
+There is a lot of code documentation in the project and you can use quick help to access these when ever you want. 
+
+For now you will have to use the in code documentation untill I update this README soon.
+
 ## Documentation
 You can find [the docs here](http://shadow-of-arman.github.io/Toasty/). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
 
