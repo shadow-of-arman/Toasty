@@ -57,12 +57,12 @@ class ViewController: UIViewController {
     let toast = Toasty()
 	
 
-	override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.createUI()
     }
 
-	 override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.toast.prepareToast(title: "Toasty!")
     }
