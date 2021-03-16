@@ -37,6 +37,7 @@
 		451CFE6C25F0CAE900F904CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		451CFE6E25F0CAE900F904CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		452C09F325F93CCC00252244 /* Toasty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Toasty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45AE605A2600BB3A001D7DDA /* Toast Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Toast Example.entitlements"; sourceTree = "<group>"; };
 		45CB3EBE25F0E6430046EC46 /* HoveringPopUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoveringPopUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +73,7 @@
 		451CFE5F25F0CAE500F904CF /* Toast Example */ = {
 			isa = PBXGroup;
 			children = (
+				45AE605A2600BB3A001D7DDA /* Toast Example.entitlements */,
 				451CFE6025F0CAE500F904CF /* AppDelegate.swift */,
 				451CFE6425F0CAE500F904CF /* ViewController.swift */,
 				451CFE6925F0CAE900F904CF /* Assets.xcassets */,
@@ -300,16 +302,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Toast Example/Toast Example.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 589RNFRDJ2;
 				INFOPLIST_FILE = "Toast Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "shadow.co.Toast-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -320,16 +325,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Toast Example/Toast Example.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 589RNFRDJ2;
 				INFOPLIST_FILE = "Toast Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "shadow.co.Toast-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
